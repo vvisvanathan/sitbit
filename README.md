@@ -1,24 +1,26 @@
-# Flux-capacitr
+# Sitbit
+*Life is short. Sit more.*
 
 [Heroku link][heroku]
 
-[heroku]: http://flux-capacitr.herokuapp.com
+[heroku]: http://sitbit.herokuapp.com
 
 ## Minimum Viable Product
-Flux-capacitr is a clone of Tumblr built on Rails and Backbone. Users can:
+Sitbit is a clone of the fitbit dashboard built on Rails and Backbone. Users can:
 
 <!-- This is a Markdown checklist. Use it to keep track of your progress! -->
 
-- [x] Create accounts
-- [x] Create sessions (log in)
-- [x] Create blogs
-- [x] Create blog posts
-- [ ] View blogs and posts
-- [ ] Subscribe to blogs
-- [ ] View a feed of subscribed blogs
-- [ ] Tag blog posts
-- [ ] Search for blogs by title
-- [ ] Search for posts by tag
+- [ ] Create accounts
+- [ ] Create sessions (log in)
+- [ ] Track and view their 'Time Spent Sitting'
+- [ ] Track and view their 'Calories Rescued'
+- [ ] Track and view their 'Inactivity Level'
+- [ ] View a dashboard that summarizes their statistics
+- [ ] Interact with dashboard to modify timelines or see details
+- [ ] Add and follow friends
+- [ ] View a leaderboard
+- [ ] Search for friends by name or email
+- [ ] Log in as guest user
 
 ## Design Docs
 * [View Wireframes][views]
@@ -29,63 +31,80 @@ Flux-capacitr is a clone of Tumblr built on Rails and Backbone. Users can:
 
 ## Implementation Timeline
 
-### Phase 1: User Authentication, Blog Creation (~1 day)
+### Phase 1: User Authentication, Dashboard Creation (~1 day)
 I will implement user authentication in Rails based on the practices learned at
-App Academy. By the end of this phase, users will be able to create blogs using
-a simple text form in a Rails view. The most important part of this phase will
-be pushing the app to Heroku and ensuring that everything works before moving on
-to phase 2.
+App Academy. By the end of this phase, users will be able to create an account
+using a simple text form in a Rails view. The most important part of this phase
+will be pushing the app to Heroku and ensuring that everything works before
+moving on to phase 2.
 
 [Details][phase-one]
 
-### Phase 2: Viewing Blogs and Posts (~2 days)
-I will add API routes to serve blog and post data as JSON, then add Backbone
-models and collections that fetch data from those routes. By the end of this
-phase, users will be able to create blogs and view both blogs and posts, all
-inside a single Backbone app.
+### Phase 2: Viewing Basic User Stats (~1 day)
+I will add API routes to serve sit time, calories rescued, and inactivity level
+data as JSON, then add Backbone models and collections that fetch data from
+those routes. By the end of this phase, users will be able to sign up for sitbit
+and view text-form data of their three (3) base-level statistics, all inside a
+single-page Backbone app.
+
 
 [Details][phase-two]
 
-### Phase 3: Editing and Displaying Posts (~2 days)
-I plan to use third-party libraries to add functionality to the `PostForm` and
-`PostShow` views in this phase. First I'll need to add a Markdown editor to the
-`PostForm`, and make sure that the Markdown is properly escaped and formatted in
-the `PostShow` view. I also plan to integrate Filepicker for file upload so
-users can add images to blog posts.
+### Phase 3: Graphing Basic User Stastistics (~2 days)
+I will use third-party libraries (d3.js, chartview.js, or other) to graph a
+user's three (3) base-level statistics. These graphs will appear as tiles on the
+user's dashboard.
+- 'Time Spent Sitting' will appear as a circular progress bar (out of 24 hours)
+- 'Calories Rescued' will appear as a bar graph (progressive over one week)
+- 'Inactivity Level' will appear as a line graph (progressive over 24 hours)
 
 [Details][phase-three]
 
-### Phase 4: User Feeds (~1-2 days)
-I'll start by adding a `feed` route that uses the `current_user`'s
-`subscribed_blogs` association to serve a list of blog posts ordered
-chronologically. On the Backbone side, I'll make a `FeedShow` view whose `posts`
-collection fetches from the new route.  Ultimately, this will be the page users
-see after logging in.
+### Phase 4: Interactive Dashboard (~2 days)
+Add functionality that (1) lets users toggle between various timespans on their
+graphed statistics (2) allows users to click on graph tiles to access a detail
+page on the statistic. The detail pages should pop-out instead of redirecting
+to a different page.
 
 [Details][phase-four]
 
-### Phase 5: Searching for Blogs and Posts (~2 days)
-I'll need to add `search` routes to both the Blogs and Posts controllers. On the
-Backbone side, there will be a `SearchResults` composite view has `BlogsIndex`
-and `PostsIndex` subviews. These views will use plain old `blogs` and `posts`
-collections, but they will fetch from the new `search` routes.
+### Phase 5: User Search, Friends, Notifications, and Leaderboard(~2 days)
+I will add the ability for users to search for other users in a search bar on
+the dashboard, follow/unfollow friends within the search results, see
+notifications (like friend requests), and view a leaderboard of their friends on
+their dashboards.
+
+I'll need to add `search` routes to the users controller. On the Backbone side,
+there will be a `SearchResults` composite view with 'UserIndex' composite views.
+The dashboard will obtain a new view for a 'Leaderboard,' which ranks friends.
 
 [Details][phase-five]
 
+### Phase 6: Add guest log-in and begin bonus features (~2 days)
+A final (yet important) step of this project is to allow a visitor to log in as
+a guest and test all of the website's functionality. The guest account should
+have seeded data and should reset every night. The user should be able to log-in
+as a guest in a single click from the login page.
+
+The remainder of the time should be spent implementing bonus features in the
+order of priority specified below.
+
+[Details][phase-six]
+
 ### Bonus Features (TBD)
-- [ ] "Like" button and counter for posts
-- [ ] Custom blog urls
-- [ ] Pagination/infinite scroll
-- [ ] Activity history (e.g. likes, reblogs, taggings)
-- [ ] Post types (image posts, quote posts, etc)
-- [ ] Reblogging
+- [ ] Users can customize their account settings and set accounts to private
+- [ ] Users can customize their dashboard
+- [ ] Users can track and view their 'Calories Gloriously Consumed'
+- [ ] Users can track and view their 'Net Calories'
+- [ ] Users can set and view a custom 'Target Weight'
+- [ ] Users can track and view their 'Current Weight'
+- [ ] Website tour (Shepherd)
 - [ ] Multiple sessions/session management
-- [ ] User avatars
-- [ ] Typeahead search bar
+- [ ] Build and implement my own charting library
 
 [phase-one]: ./docs/phases/phase1.md
 [phase-two]: ./docs/phases/phase2.md
 [phase-three]: ./docs/phases/phase3.md
 [phase-four]: ./docs/phases/phase4.md
 [phase-five]: ./docs/phases/phase5.md
-
+[phase-six]: ./docs/phases/phase6.md
