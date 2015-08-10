@@ -31,21 +31,24 @@ Sitbit is a clone of the fitbit dashboard built on Rails and Backbone. Users can
 
 ## Implementation Timeline
 
-### Phase 1: User Authentication, Dashboard Creation (~1 day)
+### Phase 1: User Authentication, Sit Data and Seeding (~1 day)
 I will implement user authentication in Rails based on the practices learned at
 App Academy. By the end of this phase, users will be able to create an account
-using a simple text form in a Rails view. The most important part of this phase
-will be pushing the app to Heroku and ensuring that everything works before
-moving on to phase 2.
+using a simple text form in a Rails view, and edit/update account details after
+creation.
+
+Users will also be able to see a log of all of their 'sits' (start time, end
+time). The 'sit period' data will be used to calculate the user's stats in the
+back-end to pass through the API.
 
 [Details][phase-one]
 
 ### Phase 2: Viewing Basic User Stats (~1 day)
-I will add API routes to serve sit time, calories rescued, and inactivity level
-data as JSON, then add Backbone models and collections that fetch data from
-those routes. By the end of this phase, users will be able to sign up for sitbit
-and view text-form data of their three (3) base-level statistics, all inside a
-single-page Backbone app.
+I will add backend processing to serve sit time, calories rescued, and
+inactivity level data as JSON, then add Backbone models and collections that
+fetch data from those routes. By the end of this phase, users will be able to
+sign up for sitbit and view text-form data of their three (3) base-level
+statistics, all inside a single-page Backbone app.
 
 
 [Details][phase-two]
