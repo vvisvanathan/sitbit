@@ -1,18 +1,16 @@
 # Sitbit
 *Life is short- have a sit.*
 
+Sitbit promotes healthy stress-relief and relaxation by tracking time spent
+sitting. Users can track their time spent sitting comfortably, rescuing innocent
+calories from being 'burned,' and maintaining a healthy level of inactivity.
+
 [Heroku link][heroku]
 
 [heroku]: http://sitbit.herokuapp.com
 
 ## Minimum Viable Product
-Sitbit is a clone of the fitbit dashboard built on Rails and Backbone.
-
-Sitbit promotes healthy stress-relief and relaxation by tracking time spent
-sitting. Users can track their time spent sitting comfortably, rescuing innocent
-calories from being 'burned,' and maintaining a healthy level of inactivity.
-
-The Sitbit Dashboard allows users to:
+Sitbit is a clone of the fitbit dashboard built on Rails and Backbone. Users can:
 
 - [ ] Create accounts
 - [ ] Create sessions (log in)
