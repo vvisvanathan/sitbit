@@ -4,26 +4,36 @@
 ### Models
 
 ### Controllers
-Api::BlogsController (create, destroy, index, show)
-Api::PostsController (create, destroy, show, update)
+Api::SitTimesController (index, show, create, update, destroy)
+Api::SavedCalsController (index, show, create, update, destroy)
+Api::ActivLevelsController (index, show, create, update, destroy)
 
 ### Views
-* blogs/show.json.jbuilder
+* sit_times/index.json.jbuilder
+* sit_times/show.json.jbuilder
+* saved_cals/index.json.jbuilder
+* saved_cals/show.json.jbuilder
+* activ_levels/index.json.jbuilder
+* activ_levels/show.json.jbuilder
 
 ## Backbone
 ### Models
-* Blog (parses nested `posts` association)
-* Post
+* SitTime
+* SavedCal
+* ActivLevel
 
 ### Collections
-* Blogs
-* Posts
+* SitTimes
+* SavedCals
+* ActivLevels
 
 ### Views
-* BlogForm
-* BlogShow (composite view, contains PostsIndex subview)
-* PostsIndex (composite view, contains PostsIndexItem subviews)
-* PostsIndexItem
-* PostShow
+* SitNew
+* SitTimesIndex
+* SitTimeShow
+* SitTimesIndex
+* SitTimeShow
+* SitTimesIndex
+* SitTimeShow
 
 ## Gems/Libraries

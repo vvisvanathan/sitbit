@@ -1,26 +1,25 @@
-# View Wireframes
+# Wireframes
 
 ## New Session
-![new-session]
+<!-- ![new-session] -->
 
-## Feed Show (landing page)
-![feed-show]
+## Dashboard (landing page)
 
-## Blog Show
-![blog-show]
+## Sit Time (detail view)
+<!-- ![sittime-show] -->
 
-## Post Show
-![post-show]
+## Calories Rescued (detail view)
+<!-- ![savedcals-show] -->
 
-## Post Form
-![post-form]
+## Sit Time (detail view)
+<!-- ![activlevels-show] -->
 
-## Search Results
-![search-results]
+## User Search
+<!-- ![user-search] -->
 
-[new-session]: ./wireframes/new_session.png
+<!-- [new-session]: ./wireframes/new_session.png
 [feed-show]: ./wireframes/feed_show.png
 [blog-show]: ./wireframes/blog_show.png
 [post-show]: ./wireframes/post_show.png
 [post-form]: ./wireframes/post_form.png
-[search-results]: ./wireframes/search_results.png
+[search-results]: ./wireframes/search_results.png -->

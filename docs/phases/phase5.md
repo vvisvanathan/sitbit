@@ -2,21 +2,33 @@
 
 ## Rails
 ### Models
+* follow
+* notification
 
 ### Controllers
-Api::BlogsController (search)
-Api::PostsController (search)
+* Api::UsersController (index, show)
+* Api::FollowsController (create, destroy)
+* Api::NotificationsController (index, show, create, update, destroy)
 
 ### Views
+* users/index.json.jbuilder
+* users/show.json.jbuilder
 
 ## Backbone
 ### Models
+User
+Notifications
 
 ### Collections
+Users
+Notification
 
 ### Views
-* BlogSearchItem
-* SearchShow (composite view, contains BlogsIndex and PostsIndex subviews)
+* UserSearchItem
+* UsersSearch (composite view, subviews: UsersSearchItem)
+* UsersIndexItem
+* UsersIndex (composite view, subviews: UsersIndexItem)
+* NotificationsIndexItem
+* NotificationsIndex (composite view, subviews: NotificationsIndexItem)
 
 ## Gems/Libraries
-

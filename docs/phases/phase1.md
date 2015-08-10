@@ -2,13 +2,13 @@
 
 ## Rails
 ### Models
-* User
-* Sits
+* user
+* sit
 
 ### Controllers
-* UsersController (create, show, new, edit, update, destroy)
-* SessionsController (create, new, destroy)
-* SitsController (create, show, index)
+* UsersController (show, new, create, edit, update, destroy)
+* SessionsController (new, create, destroy)
+* SitsController (index, show, new, create)
 
 ### Views
 * users/new.html.erb

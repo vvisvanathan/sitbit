@@ -1,5 +1,5 @@
 # Sitbit
-*Life is short. Sit more.*
+*Life is short. Have a sit.*
 
 [Heroku link][heroku]
 
@@ -12,7 +12,7 @@ Sitbit is a clone of the fitbit dashboard built on Rails and Backbone. Users can
 
 - [ ] Create accounts
 - [ ] Create sessions (log in)
-- [ ] Track and view their 'Time Spent Sitting'
+- [ ] Track and view their 'Sit Time'
 - [ ] Track and view their 'Calories Rescued'
 - [ ] Track and view their 'Inactivity Level'
 - [ ] View a dashboard that summarizes their statistics
@@ -57,13 +57,13 @@ statistics, all inside a single-page Backbone app.
 I will use third-party libraries (d3.js, chartview.js, or other) to graph a
 user's three (3) base-level statistics. These graphs will appear as tiles on the
 user's dashboard.
-- 'Time Spent Sitting' will appear as a circular progress bar (out of 24 hours)
+- 'Sit Time' will appear as a circular progress bar (out of 24 hours)
 - 'Calories Rescued' will appear as a bar graph (progressive over one week)
 - 'Inactivity Level' will appear as a line graph (progressive over 24 hours)
 
 [Details][phase-three]
 
-### Phase 4: Interactive Dashboard (~2 days)
+### Phase 4: Interactive Dashboard (~1-2 days)
 Add functionality that (1) lets users toggle between various timespans on their
 graphed statistics (2) allows users to click on graph tiles to access a detail
 page on the statistic. The detail pages should pop-out instead of redirecting
@@ -72,12 +72,13 @@ to a different page.
 [Details][phase-four]
 
 ### Phase 5: User Search, Friends, Notifications, and Leaderboard(~2 days)
-I will add the ability for users to search for other users in a search bar on
-the dashboard, follow/unfollow friends within the search results, see
-notifications (like friend requests), and view a leaderboard of their friends on
-their dashboards.
+Add the ability for users to:
+- Search for other users in a search bar on the dashboard
+- follow/unfollow friends within the search results
+- see notifications for friend requests
+- view a leaderboard of their friends on their dashboards.
 
-I'll need to add `search` routes to the users controller. On the Backbone side,
+Add `search` routes to the users controller. On the Backbone side,
 there will be a `SearchResults` composite view with 'UserIndex' composite views.
 The dashboard will obtain a new view for a 'Leaderboard,' which ranks friends.
 
