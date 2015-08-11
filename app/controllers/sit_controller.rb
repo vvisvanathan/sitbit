@@ -1,0 +1,2 @@
+class SitController < ApplicationController
+end

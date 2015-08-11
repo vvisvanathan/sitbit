@@ -21,7 +21,7 @@ Sitbit is a clone of the fitbit dashboard built on Rails and Backbone. Users can
 - [ ] Interact with dashboard to modify timelines or see details
 - [ ] Add and follow friends
 - [ ] View a leaderboard
-- [ ] Search for friends by name or email
+- [ ] Search for friends by username
 - [ ] Log in as guest user
 
 ## Design Docs

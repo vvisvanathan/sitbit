@@ -1,0 +1,13 @@
+<h1 class="main-title">
+  <a href="#">sitbit</a>
+</h1>
+
+<div id='content'></div>
+
+<script>
+  $(function () {
+    Sitbit.CURRENT_USER_ID = <%= current_user.id %>;
+    Sitbit.CURRENT_USERNAME = <%= current_user.username %>;
+    Sitbit.initialize();
+  });
+</script>

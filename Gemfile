@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+gem 'bootstrap-sass'
+gem 'backbone-on-rails'
+gem 'bcrypt'
 gem 'newrelic_rpm'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -42,4 +45,10 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  gem 'pry-rails'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'quiet_assets'
+  gem 'annotate', '~> 2.6.6'
 end
