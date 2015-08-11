@@ -16,7 +16,16 @@ class Sit < ActiveRecord::Base
 
   belongs_to :user
 
-  def
+  def interval
+    return self.end_time.to_f - self.start_time.to_f
+  end
+
+  def within_today
+  end
+
+  def within_week
+  end
+
 
   private
   def ensure_valid_time_interval

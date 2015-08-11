@@ -12,8 +12,8 @@ calories from being 'burned,' and maintaining a healthy level of inactivity.
 ## Minimum Viable Product
 Sitbit is a clone of the fitbit dashboard built on Rails and Backbone. Users can:
 
-- [ ] Create accounts
-- [ ] Create sessions (log in)
+- [x] Create accounts
+- [x] Create sessions (log in)
 - [ ] Track and view their 'Sit Time'
 - [ ] Track and view their 'Calories Rescued'
 - [ ] Track and view their 'Inactivity Level'

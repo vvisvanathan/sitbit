@@ -1,2 +1,0 @@
-class SitController < ApplicationController
-end
