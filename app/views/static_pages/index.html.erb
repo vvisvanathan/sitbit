@@ -2,25 +2,21 @@
   <a href="#">sitbit</a>
 </h1>
 
+<div id="navbar"></div>
 <div id='content'></div>
 
-<div class="input-group bootstrap-timepicker timepicker">
-    <input id="timepicker1" type="text" class="form-control input-small">
-    <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-</div>
-
-<ul class="sit-log">
+<!-- <ul class="sit-log">
   <% current_user.sits.each do |sit| %>
     <li> <%= [sit.start_time.to_time, sit.end_time.to_time, (sit.interval / 3600), sit.is_sleep] %> </li>
   <% end %>
-</ul>
+</ul> -->
 
 <script>
-  $('#timepicker1').timepicker();
-
   $(function () {
-    Sitbit.CURRENT_USER_ID = <%= current_user.id %>;
-    Sitbit.CURRENT_USERNAME = <%= current_user.username %>;
     Sitbit.initialize();
+    Sitbit.CURRENT_USER = {
+      id: <%= current_user.id %>,
+      username: "<%= current_user.username %>"
+    };
   });
 </script>

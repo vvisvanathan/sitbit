@@ -38,6 +38,6 @@ column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
 user_id     | integer   | not null, foreign key (references users)
-body        | string    | not null
+body        | text      | not null
 status      | string    | not null
 url         | string    | not null

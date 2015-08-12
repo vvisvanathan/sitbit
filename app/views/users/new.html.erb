@@ -3,10 +3,34 @@
 
   <form action="/users" method="post">
     <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
     <label for="username">Username</label><br>
-    <input id="username" name="user[username]" type="text"><br>
+    <input id="username" name="user[username]" type="text" placeholder="Username"><br>
+
     <label for="password">Password</label><br>
-    <input id="password" name="user[password]" type="password"><br>
+    <input id="password" name="user[password]" type="password" placeholder="Password"><br>
+
+    <label for="age">Age</label><br>
+    <input id="age" name="user[age]" type="number"placeholder="Age" min="18" max="100"><br>
+
+    <label for="sex">Sex</label><br>
+    <input id="sex" type="radio" name="user[sex]" value="m"> Male
+    <input id="sex" type="radio" name="user[sex]" value="f"> Female<br>
+
+    <label for="weight">Weight (lbs.)</label><br>
+    <input id="weight" name="user[weight]" type="text" placeholder="Weight (lbs)"><br>
+
+    <label for="height">Height (inches)</label><br>
+    <input id="height" name="user[height]" type="text" placeholder="Height (inches)"><br>
+
+    <label for="actx">Lifestyle</label><br>
+    <input id="actx" type="radio" name="user[actx]" value="m"> Sedentary<br>
+    <input id="actx" type="radio" name="user[actx]" value="f"> Active<br>
+    <input id="actx" type="radio" name="user[actx]" value="f"> Athlete<br>
+
+    <label for="cals_in">Average Daily Calories Consumed (optional)</label><br>
+    <input id="cals_in" name="user[cals_in]" type="text" placeholder="2000"><br>
+
     <input type="submit" value="Sign Up"><br>
   </form>
 </div>

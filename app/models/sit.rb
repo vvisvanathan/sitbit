@@ -21,48 +21,80 @@ class Sit < ActiveRecord::Base
 
   belongs_to :user
 
-  def self.sits_today
-  end
-
-  def sit_time_today
-  end
-
-  def calories_saved_today
-    # TODO: calculated calories saved based on calories burned versus hypothetical cals burned (based on actx)
-    calories_burned
-  end
-
   def interval
     return self.end_time.to_f - self.start_time.to_f
   end
 
-# private
-
-  def intervals_today
+  def interval_in_hours
+    interval / 3600
   end
 
-  def calories_burned_sitting
-    # MEN: Cals Burned = [(Age x 0.2017) — (Weight x 0.09036) + (Heart Rate x 0.6309) — 55.0969] x Time / 4.184.
-    # WOMEN: Cals Burned = [(Age x 0.074) — (Weight x 0.05741) + (Heart Rate x 0.4472) — 20.4022] x Time / 4.184.
+  def sit_cals_rate
+    return (self.sit_cals / self.interval_in_hours ) * 24
+  end
 
-    time = (self.interval)
-    a, w, hr = user.age, user.weight, user.rhr
+  def sit_cals
+    # Male (imperial): RMR = [(6.25 x WP) + (12.7 x HI) - (6.76 x age) + 66] x 1.1
+    # Female (imperial): RMR = [(4.35 x WP) + (4.7 x HI) - 4.68 x age) + 655] x 1.1
 
-    if user.sex == 'm'
-      aX, wX, hrX, oX = 0.2017, 0.09036, 0.6309, 55
-    elsif user.sex == 'f'
-      aX, wX, hrX, oX = 0.074, 0.05741, 0.4472, 20
+    user_attrs = user.attributes
+    sex = user_attrs['sex']
+    age = user_attrs['age']
+    weight = user_attrs['weight']
+    height = user_attrs['height']
+    is_sleep ? sleepx = 0.75 : sleepx = 1
+
+    if sex == 'm'
+      wX, hX, aX, oX = 6.25, 12.7, 6.76, 66
+    elsif sex == 'f'
+      wX, hX, aX, oX = 4.35, 4.7, 4.68, 655
     else
-      aX, wX, hrX, oX = (0.2017 + 0.074)/2, (0.09036 + 0.05741)/2, (0.6309 + 0.4472)/2, (55+20)/2
+      wX, hX, aX, oX = (6.25 + 4.35)/2, (12.7 + 4.7)/2, (6.76 + 4.68)/2, (66 + 655)/2
     end
 
-    return ((aX * a) - (wX * w) + (hrX * hr) - oX) * time / 4.184
+    hc = ((weight * wX) + (height * hX) - (age * aX) + oX) * day_frac * sleepx
+
+    return hc
   end
 
-  def hypothetical_calories_burned
+  def hyp_cals
+    return self.sit_cals * (1.0 + ( (user.actx ** 2.25) / 10 ))
   end
 
-# validation:
+  def hyp_cals_rate
+    return (self.hyp_cals / self.interval_in_hours ) * 24
+  end
+
+  def cal_stats
+    sitc = sit_cals
+    scr = (sitc / self.interval_in_hours) * 24
+    hypc = hyp_cals
+    hcr = (hypc / self.interval_in_hours ) * 24
+    net = hypc - sitc
+
+    return {
+      sit_cals: sitc,
+      sit_rate: scr,
+      hyp_cals: hypc,
+      hyp_rate: hcr,
+      net: net
+    }
+  end
+
+
+  def steps_avoided
+    return 0 if self.is_sleep
+    uws = user.walk_stats
+    dist_avoided = (uws[:pace] * interval_in_hours)
+    steps_avoided = (dist_avoided * 63360.0) / uws[:stride]
+    return steps_avoided * (1 + 0.4*(self.actx - 3))
+  end
+
+
+  private
+  def day_frac
+    return (self.interval) / (3600 * 24)
+  end
 
   def overlapping_sits
     Sit.where('(:id IS NULL) OR (id != :id)', id: self.id)

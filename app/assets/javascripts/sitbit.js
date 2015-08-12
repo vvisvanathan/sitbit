@@ -4,7 +4,13 @@ window.Sitbit = {
   Views: {},
   Routers: {},
   initialize: function() {
-    alert('Hello from Backbone!');
+    new Sitbit.Routers.UserRouter({
+      $navEl: $('#navbar'),
+      $rootEl: $('#content'),
+      users: new Sitbit.Collections.Users()
+    });
+
+    Backbone.history.start();
   }
 };
 

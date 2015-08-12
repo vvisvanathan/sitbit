@@ -17,8 +17,9 @@
 #
 
 class User < ActiveRecord::Base
-  validates :password_digest, :session_token, :sex, :age, :weight, :height, :actx, :cals_in, presence: true
+  validates :password_digest, :session_token, :age, :weight, :height, :actx, :cals_in, presence: true
   validates :username, presence: true, length: { minimum: 3, maximum: 12, allow_nil: false }
+  validates :sex, :inclusion => {:in => ['m', 'f', 'o']}
   validates :password, length: { minimum: 6, allow_nil: true }
   validates :username, :session_token, uniqueness: true
   after_initialize :ensure_session_token, :ensure_cals_in
@@ -26,6 +27,14 @@ class User < ActiveRecord::Base
 
   has_many :sits
 
+  def walk_stats
+    pace = 3.1 * (self.height/70.0)
+    stride = 0.414 * self.height
+
+    return { pace: pace, stride: stride }
+  end
+
+  # TODO: delete rhr?
   def rhr
     return (45 + (10 * self.actx)) + (self.age / 11) if self.sex == 'm'
     return (50 + (10 * self.actx)) + (self.age / 11) if self.sex == 'f'
@@ -61,6 +70,6 @@ class User < ActiveRecord::Base
   end
 
   def ensure_cals_in
-    self.cals_in ||= 2000
+    self.cals_in ||= 1200 + (self.actx * 400)
   end
 end
