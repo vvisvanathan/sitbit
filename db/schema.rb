@@ -11,27 +11,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150811171420) do
+ActiveRecord::Schema.define(version: 20150812043007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "sits", force: :cascade do |t|
-    t.integer  "user_id",    null: false
-    t.datetime "start_time", null: false
-    t.datetime "end_time",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "user_id",                    null: false
+    t.datetime "start_time",                 null: false
+    t.datetime "end_time",                   null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "is_sleep",   default: false
+    t.integer  "weight",                     null: false
+    t.integer  "actx",                       null: false
   end
 
   add_index "sits", ["user_id"], name: "index_sits_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "username",        null: false
-    t.string   "password_digest", null: false
-    t.string   "session_token",   null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.string   "username",                       null: false
+    t.string   "password_digest",                null: false
+    t.string   "session_token",                  null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.string   "sex"
+    t.integer  "weight",                         null: false
+    t.integer  "height",                         null: false
+    t.integer  "age",                            null: false
+    t.integer  "actx",            default: 2,    null: false
+    t.integer  "cals_in",         default: 2000
   end
 
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree

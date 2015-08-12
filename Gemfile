@@ -1,9 +1,12 @@
 source 'https://rubygems.org'
 
-gem 'bootstrap-sass'
+gem 'newrelic_rpm'
+
 gem 'backbone-on-rails'
 gem 'bcrypt'
-gem 'newrelic_rpm'
+
+gem 'bootstrap-sass'
+gem 'bootstrap-timepicker-rails'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'

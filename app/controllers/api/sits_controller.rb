@@ -2,13 +2,16 @@ class Api::SitsController < ApplicationController
   before_action :require_login
 
   def index
-    @sits = current_user.sits
+    @sits = current_user.sits.includes(:user)
     render :index
   end
 
   def create
     @sit = Sit.new(sit_params)
     @sit.user_id = current_user.id
+    @sit.weight = current_user.weight
+    @sit.actx = current_user.actx
+    
     if @sit.save
       render :index
     else
@@ -33,6 +36,6 @@ class Api::SitsController < ApplicationController
 
   private
   def sit_params
-    params.require(:sit).permit(:start_time, :end_time)
+    params.require(:sit).permit(:start_time, :end_time, :is_sleep)
   end
 end

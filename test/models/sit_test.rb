@@ -8,6 +8,9 @@
 #  end_time   :datetime         not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  is_sleep   :boolean          default(FALSE)
+#  weight     :integer          not null
+#  actx       :integer          not null
 #
 
 require 'test_helper'

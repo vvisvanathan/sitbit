@@ -5,8 +5,8 @@ column name | data type | details
 ------------|-----------|-----------------------
 id          | integer   | not null, primary key
 user_id     | integer   | not null, foreign key (references users)
-start_time  | integer   | not null
-end_time    | integer   | not null
+start_time  | datetime  | not null
+end_time    | datetime  | not null
 
 ## users
 column name     | data type | details

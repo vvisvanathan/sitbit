@@ -23,3 +23,4 @@
 //= require_tree ./routers
 //= require_tree .
 //= require bootstrap
+//= require bootstrap-timepicker

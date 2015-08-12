@@ -8,6 +8,12 @@
 #  session_token   :string           not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  sex             :string
+#  weight          :integer          not null
+#  height          :integer          not null
+#  age             :integer          not null
+#  actx            :integer          default(2), not null
+#  cals_in         :integer          default(2000)
 #
 
 require 'test_helper'

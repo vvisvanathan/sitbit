@@ -8,16 +8,31 @@
 #  session_token   :string           not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  sex             :string
+#  weight          :integer          not null
+#  height          :integer          not null
+#  age             :integer          not null
+#  actx            :integer          default(2), not null
+#  cals_in         :integer          default(2000)
 #
 
 class User < ActiveRecord::Base
-  validates :username, :password_digest, :session_token, presence: true
+  validates :password_digest, :session_token, :sex, :age, :weight, :height, :actx, :cals_in, presence: true
+  validates :username, presence: true, length: { minimum: 3, maximum: 12, allow_nil: false }
   validates :password, length: { minimum: 6, allow_nil: true }
   validates :username, :session_token, uniqueness: true
-  after_initialize :ensure_session_token
+  after_initialize :ensure_session_token, :ensure_cals_in
   attr_reader :password
 
   has_many :sits
+
+  def rhr
+    return (45 + (10 * self.actx)) + (self.age / 11) if self.sex == 'm'
+    return (50 + (10 * self.actx)) + (self.age / 11) if self.sex == 'f'
+    return (47 + (10 * self.actx)) + (self.age / 11)
+  end
+
+  # authentication:
 
   def self.find_by_credentials(username, password)
     user = User.find_by(username: username)
@@ -43,5 +58,9 @@ class User < ActiveRecord::Base
   private
   def ensure_session_token
     self.session_token ||= SecureRandom.urlsafe_base64(16)
+  end
+
+  def ensure_cals_in
+    self.cals_in ||= 2000
   end
 end
