@@ -18,7 +18,7 @@ if show_sits
                          :start_time,
                          :end_time,
                          :is_sleep,
-                         :interval_in_hours,
+                         :interval,
                          :cal_stats,
                          :steps_avoided
     end

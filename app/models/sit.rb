@@ -22,15 +22,22 @@ class Sit < ActiveRecord::Base
   belongs_to :user
 
   def interval
+    interval = interval_in_seconds
+
+    return {
+      in_seconds: interval,
+      in_minutes: (interval / 60),
+      in_hours: (interval / 3600 ),
+      in_days: (interval / (3600 * 24))
+    }
+  end
+
+  def interval_in_seconds
     return self.end_time.to_f - self.start_time.to_f
   end
 
-  def interval_in_hours
-    interval / 3600
-  end
-
   def sit_cals_rate
-    return (self.sit_cals / self.interval_in_hours ) * 24
+    return (self.sit_cals / self.interval[:in_hours] ) * 24
   end
 
   def sit_cals
@@ -40,7 +47,7 @@ class Sit < ActiveRecord::Base
     user_attrs = user.attributes
     sex = user_attrs['sex']
     age = user_attrs['age']
-    weight = user_attrs['weight']
+    weight = self.weight
     height = user_attrs['height']
     is_sleep ? sleepx = 0.75 : sleepx = 1
 
@@ -52,24 +59,24 @@ class Sit < ActiveRecord::Base
       wX, hX, aX, oX = (6.25 + 4.35)/2, (12.7 + 4.7)/2, (6.76 + 4.68)/2, (66 + 655)/2
     end
 
-    hc = ((weight * wX) + (height * hX) - (age * aX) + oX) * day_frac * sleepx
+    hc = ((weight * wX) + (height * hX) - (age * aX) + oX) * self.interval[:in_days] * sleepx
 
     return hc
   end
 
   def hyp_cals
-    return self.sit_cals * (1.0 + ( (user.actx ** 2.25) / 10 ))
+    return self.sit_cals * (1.0 + ( (self.actx ** 2.25) / 10 ))
   end
 
   def hyp_cals_rate
-    return (self.hyp_cals / self.interval_in_hours ) * 24
+    return (self.hyp_cals / self.interval[:in_hours] ) * 24
   end
 
   def cal_stats
     sitc = sit_cals
-    scr = (sitc / self.interval_in_hours) * 24
+    scr = (sitc / self.interval[:in_hours]) * 24
     hypc = hyp_cals
-    hcr = (hypc / self.interval_in_hours ) * 24
+    hcr = (hypc / self.interval[:in_hours] ) * 24
     net = hypc - sitc
 
     return {
@@ -85,16 +92,13 @@ class Sit < ActiveRecord::Base
   def steps_avoided
     return 0 if self.is_sleep
     uws = user.walk_stats
-    dist_avoided = (uws[:pace] * interval_in_hours)
+    dist_avoided = (uws[:pace] * self.interval[:in_hours])
     steps_avoided = (dist_avoided * 63360.0) / uws[:stride]
     return steps_avoided * (1 + 0.4*(self.actx - 3))
   end
 
 
   private
-  def day_frac
-    return (self.interval) / (3600 * 24)
-  end
 
   def overlapping_sits
     Sit.where('(:id IS NULL) OR (id != :id)', id: self.id)

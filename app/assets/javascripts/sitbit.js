@@ -4,11 +4,19 @@ window.Sitbit = {
   Views: {},
   Routers: {},
   initialize: function() {
-    new Sitbit.Routers.UserRouter({
+    var users = new Sitbit.Collections.Users();
+
+    var router = new Sitbit.Routers.UserRouter({
       $navEl: $('#navbar'),
       $rootEl: $('#content'),
-      users: new Sitbit.Collections.Users()
+      collection: users
     });
+
+    var nav = new Sitbit.Views.NavShow({
+      router: router,
+      collection: users
+    });
+    $('#navbar').html(nav.render().$el);
 
     Backbone.history.start();
   }
