@@ -1,38 +1,112 @@
-<div class="auth-form">
-  <%= render "./shared/authheader" %>
+<div class="auth-b">
+  <div class="filter-div"></div>
 
-  <h2>Sign up!</h2>
+  <% if flash[:errors] %>
+    <div class="error-header">
+      <%= flash[:errors].first.html_safe %>
+    </div>
+  <% end %>
 
-  <form action="/users" method="post" class="signup-form">
-    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <div class="auth-form-b">
+    <img src="http://i.imgur.com/h5bR557.png" class= "auth-logo">
 
-    <label for="username">Username</label>
-    <input id="username" name="user[username]" type="text" placeholder="Username" value="<%= @user.username %>"><br>
+    <!-- form -->
+    <form action="/users" method="post" class="form-horizontal" role="form">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
 
-    <label for="password">Password</label>
-    <input id="password" name="user[password]" type="password" placeholder="Password"><br>
+      <!-- username -->
+      <div style="margin-bottom: 15px" class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <input id="username" type="text" class="form-control" name="user[username]" value="" placeholder="username" maxlength="12" value="<%= @user.username %>">
+      </div>
 
-    <label for="age">Age</label>
-    <input id="age" name="user[age]" type="number"placeholder="Age" min="18" max="100" value="<%= @user.age %>"><br>
+      <!-- password -->
+      <div style="margin-bottom: 15px" class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        <input id="signup-password" type="password" class="form-control" name="user[password]" placeholder="password" maxlength="15">
+      </div>
 
-    <label for="sex">Sex</label>
-    <input id="sex" type="radio" name="user[sex]" value="m"> Male
-    <input id="sex" type="radio" name="user[sex]" value="f"> Female<br>
+<div style="border-top: 2px solid lightgray; padding-top:10px; font-size:85%" ></div>
 
-    <label for="weight">Weight (lbs.)</label>
-    <input id="weight" name="user[weight]" type="text" placeholder="Weight (lbs)" value="<%= @user.weight %>"><br>
+    <!-- detail row -->
+      <div class="det-row">
+        <!-- sex -->
+        <div class="btn-group signup-sex" data-toggle="buttons">
+          <label class="radio-btn btn btn-default">
+              <input type="radio" id="sex" name="user[sex]" value="m" /> M
+          </label>
+          <label class="radio-btn btn btn-default">
+              <input type="radio" id="sex" name="user[sex]" value="f" /> F
+          </label>
+        </div>
 
-    <label for="height">Height (inches)</label>
-    <input id="height" name="user[height]" type="text" placeholder="Height (inches)" value="<%= @user.height %>"><br>
+        <!-- activity level -->
+        <div class="btn-group signup-actx" data-toggle="buttons">
+          <label class="radio-btn btn btn-default">
+              <input type="radio" id="actx" name="user[actx]" value="1" /> Relaxed
+          </label>
+          <label class="radio-btn btn btn-default">
+              <input type="radio" id="actx" name="user[actx]" value="2" /> Active
+          </label>
+          <label class="radio-btn btn btn-default">
+              <input type="radio" id="actx" name="user[actx]" value="3" /> Athlete
+          </label>
+        </div>
+      </div>
 
-    <label for="actx">Lifestyle</label><br>
-    <input id="actx" type="radio" name="user[actx]" value="m"> Sedentary<br>
-    <input id="actx" type="radio" name="user[actx]" value="f"> Active<br>
-    <input id="actx" type="radio" name="user[actx]" value="f"> Athlete<br>
+      <!-- Descriptors -->
+      <div class="det-row">
+        <p class="signup-sex">Sex</p>
+        <p class="signup-actx">Activity Level</p>
+      </div>
 
-    <label for="cals_in">Average Daily Calories Consumed (optional)</label><br>
-    <input id="cals_in" name="user[cals_in]" type="text" placeholder="2000" value="<%= @user.cals_in %>"><br>
+    <!-- detail row -->
+      <div class="det-row">
+        <!-- age -->
+        <div class="input-group signup-age">
+          <input id="signup-age" type="number" class="form-control" name="user[age]" placeholder="years" min = "18" max="100" value="<%= @user.age %>">
+        </div>
 
-    <button class="btn btn-success">Sign Up</button>
-  </form>
+        <!-- height -->
+        <div class="input-group signup-height">
+          <input id="signup-height" type="number" class="form-control" name="user[height]" placeholder="inches" min = "48" max="84" value="<%= @user.height %>">
+        </div>
+
+        <!-- weight -->
+        <div class="input-group signup-weight">
+          <input id="signup-weight" type="number" class="form-control" name="user[weight]" placeholder="lbs" min = "60" max="350" value="<%= @user.weight %>">
+        </div>
+      </div>
+      <!-- Descriptors -->
+      <div class="det-row">
+        <p class="signup-age">Age</p>
+        <p class="signup-height">Height</p>
+        <p class="signup-weight">Weight</p>
+      </div>
+
+      <!-- calories_in -->
+      <!-- <div style="margin-bottom: 15px" class="input-group">
+        <input id="signup-cals-in" type="number" class="form-control" name="user[cals_in]" placeholder="2000" min = "0" max="10000">
+      </div> -->
+
+<div style="border-top: 2px solid lightgray; padding-top:10px; font-size:85%" ></div>
+
+      <!-- <button class="btn btn-success">Sign Up</button> -->
+      <div class="submit-btn-rw">
+        <input type="submit" value="Sign Up" class="auth-btn"><br><br>
+      </div>
+
+      <div class="form-group">
+        <div class="col-md-12 control">
+          <div style="border-top: 2px solid lightgray; padding-top:10px; color: gray; text-align: center; font-size:90%" >
+              Already have an account?
+          <a href="/session/new">
+              Log In!
+          </a>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
 </div>

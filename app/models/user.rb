@@ -20,8 +20,9 @@ class User < ActiveRecord::Base
   validates :username, presence: true, length: { minimum: 3, maximum: 12, allow_nil: false }
   validates :username, :session_token, uniqueness: true
   validates :password, length: { minimum: 6, allow_nil: true }
-  validates :password_digest, :session_token, :age, :weight, :height, :actx, :cals_in, presence: true
+  validates :password_digest, :session_token, :age, :weight, :height, :cals_in, presence: true
   validates :sex, presence: true, inclusion: {:in => ['m', 'f', 'o']}
+  validates :actx, presence: true, inclusion: {:in => [1, 2, 3, 4]}
   after_initialize :ensure_session_token, :ensure_cals_in
   attr_reader :password
 
