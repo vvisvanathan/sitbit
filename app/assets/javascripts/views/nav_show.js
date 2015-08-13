@@ -1,5 +1,7 @@
 Sitbit.Views.NavShow = Backbone.View.extend({
   template: JST['nav/nav'],
+  tagName: "nav",
+  className: "navbar navbar-default",
 
   initialize: function (options) {
     this.router = options.router;

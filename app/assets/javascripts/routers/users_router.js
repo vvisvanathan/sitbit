@@ -14,23 +14,39 @@ Sitbit.Routers.UserRouter = Backbone.Router.extend({
 
   userDash: function () {
     var user = this.users.getOrFetch(Sitbit.CURRENT_USER.id);
-    var userDashView = new Sitbit.Views.UserDash({
+    var userShowView = new Sitbit.Views.UserShow({
       model: user
     });
 
-    this._swapView(userDashView);
+    this._swapView(userShowView);
   },
 
   userIndex: function () {
-    alert('userIndex');
+    this.users.fetch();
+    var usersIndexView = new Sitbit.Views.UsersIndex({
+      collection: this.users
+    });
+    this._swapView(usersIndexView);
   },
 
-  userShow: function () {
-    alert('userShow');
+  userShow: function (id) {
+    var user = this.users.getOrFetch(id);
+    var userShowView = new Sitbit.Views.UserShow({
+      model: user
+    });
+
+    this._swapView(userShowView);
   },
 
-  userEdit: function () {
-    alert('userEdit');
+  userEdit: function (id) {
+    alert('Edit not yet implemented!');
+    // var user = this.users.getOrFetch(id);
+    // var userEditView = new Sitbit.Views.UserEdit({
+    //   model: user,
+    //   collection: this.users
+    // });
+    //
+    // this._swapView(userEditView);
   },
 
   _swapView: function (newView) {

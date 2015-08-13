@@ -1,0 +1,7 @@
+<h2>User Index</h2>
+
+<ul class='user-list'>
+  <% users.each(function (user) { %>
+    <li><%= user.get('username') %></li>
+  <% }) %>
+</ul>

@@ -27,10 +27,24 @@ body {
 }
 
 #navbar {
+  min-height: 50px;
+
+  div {
+    min-height: 50px;
+  }
+}
+
+.navbar {
+  position: fixed;
+  width: 100%;
+  border-radius: 0px;
 }
 
 #content {
-  margin-top: 50px;
+}
+
+#navbar div .user-searcher {
+  min-height: 25px;
 }
 
 .auth-b {
