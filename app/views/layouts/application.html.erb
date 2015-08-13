@@ -10,18 +10,6 @@
 
 <body>
 
-  <nav class="navbar navbar-fixed">
-    <ul class="nav nav-pills">
-      <% if logged_in? %>
-        <li><%= current_user.username %></li>
-        <%= button_to "Log Out", session_url, :method => :delete %>
-      <% else %>
-        <li><%= link_to "Log In", new_session_url %></li>
-        <li><%= link_to "Sign Up", new_users_url %></li>
-      <% end %>
-    </ul>
-  </nav>
-
   <%= yield %>
 
   <br>

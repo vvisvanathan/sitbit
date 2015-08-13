@@ -16,9 +16,5 @@ Sitbit.Models.User = Backbone.Model.extend({
     }
 
     return this._sits;
-  },
-
-  _isMe: function () {
-    return Sitbit.CURRENT_USER && Sitbit.CURRENT_USER.id === this.get("user_id");
   }
 });

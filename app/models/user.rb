@@ -17,11 +17,11 @@
 #
 
 class User < ActiveRecord::Base
-  validates :password_digest, :session_token, :age, :weight, :height, :actx, :cals_in, presence: true
   validates :username, presence: true, length: { minimum: 3, maximum: 12, allow_nil: false }
-  validates :sex, :inclusion => {:in => ['m', 'f', 'o']}
-  validates :password, length: { minimum: 6, allow_nil: true }
   validates :username, :session_token, uniqueness: true
+  validates :password, length: { minimum: 6, allow_nil: true }
+  validates :password_digest, :session_token, :age, :weight, :height, :actx, :cals_in, presence: true
+  validates :sex, presence: true, inclusion: {:in => ['m', 'f', 'o']}
   after_initialize :ensure_session_token, :ensure_cals_in
   attr_reader :password
 

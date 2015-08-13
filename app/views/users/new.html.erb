@@ -1,27 +1,29 @@
-<div class="signup-form">
+<div class="auth-form">
+  <%= render "./shared/authheader" %>
+
   <h2>Sign up!</h2>
 
-  <form action="/users" method="post">
+  <form action="/users" method="post" class="signup-form">
     <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
 
-    <label for="username">Username</label><br>
-    <input id="username" name="user[username]" type="text" placeholder="Username"><br>
+    <label for="username">Username</label>
+    <input id="username" name="user[username]" type="text" placeholder="Username" value="<%= @user.username %>"><br>
 
-    <label for="password">Password</label><br>
+    <label for="password">Password</label>
     <input id="password" name="user[password]" type="password" placeholder="Password"><br>
 
-    <label for="age">Age</label><br>
-    <input id="age" name="user[age]" type="number"placeholder="Age" min="18" max="100"><br>
+    <label for="age">Age</label>
+    <input id="age" name="user[age]" type="number"placeholder="Age" min="18" max="100" value="<%= @user.age %>"><br>
 
-    <label for="sex">Sex</label><br>
+    <label for="sex">Sex</label>
     <input id="sex" type="radio" name="user[sex]" value="m"> Male
     <input id="sex" type="radio" name="user[sex]" value="f"> Female<br>
 
-    <label for="weight">Weight (lbs.)</label><br>
-    <input id="weight" name="user[weight]" type="text" placeholder="Weight (lbs)"><br>
+    <label for="weight">Weight (lbs.)</label>
+    <input id="weight" name="user[weight]" type="text" placeholder="Weight (lbs)" value="<%= @user.weight %>"><br>
 
-    <label for="height">Height (inches)</label><br>
-    <input id="height" name="user[height]" type="text" placeholder="Height (inches)"><br>
+    <label for="height">Height (inches)</label>
+    <input id="height" name="user[height]" type="text" placeholder="Height (inches)" value="<%= @user.height %>"><br>
 
     <label for="actx">Lifestyle</label><br>
     <input id="actx" type="radio" name="user[actx]" value="m"> Sedentary<br>
@@ -29,8 +31,8 @@
     <input id="actx" type="radio" name="user[actx]" value="f"> Athlete<br>
 
     <label for="cals_in">Average Daily Calories Consumed (optional)</label><br>
-    <input id="cals_in" name="user[cals_in]" type="text" placeholder="2000"><br>
+    <input id="cals_in" name="user[cals_in]" type="text" placeholder="2000" value="<%= @user.cals_in %>"><br>
 
-    <input type="submit" value="Sign Up"><br>
+    <button class="btn btn-success">Sign Up</button>
   </form>
 </div>

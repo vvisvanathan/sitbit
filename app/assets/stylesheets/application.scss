@@ -17,3 +17,59 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.auth-form {
+  display:block;
+  position: absolute;
+  margin: auto;
+  top: 0; bottom: 0; left: 0; right: 0;
+  height: 300px;
+  width: 350px;
+  padding: 25px;
+
+  background-color: white;
+  font-family: Arial;
+  border: 5px solid gray;
+  border-radius: 20px
+}
+
+.auth-nav {
+  text-align: center;
+}
+
+.auth-form > h2 {
+  font-size: 30px;
+  position: relative;
+  margin: 10px auto;
+  text-align: center;
+}
+
+.auth-form > form {
+  position: relative;
+  margin: 30px auto;
+  text-align: center;
+}
+
+.auth-btn {
+  background: #32b350;
+  -webkit-border-radius: 10;
+  -moz-border-radius: 10;
+  border-radius: 10px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 17px;
+  padding: 10px 15px 10px 15px;
+  text-decoration: none;
+  border: 0;
+}
+
+.auth-btn:hover {
+  background: #2cc731;
+  text-decoration: none;
+}
+
+.auth-logo {
+  display: block;
+  margin: 0 auto;
+  width: 200px;
+}

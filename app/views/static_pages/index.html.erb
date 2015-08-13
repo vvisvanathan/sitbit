@@ -1,22 +1,16 @@
-<h1 class="main-title">
-  <a href="#">sitbit</a>
-</h1>
+<!-- STATIC PAGE START -->
 
 <div id="navbar"></div>
 <div id='content'></div>
 
-<!-- <ul class="sit-log">
-  <% current_user.sits.each do |sit| %>
-    <li> <%= [sit.start_time.to_time, sit.end_time.to_time, (sit.interval / 3600), sit.is_sleep] %> </li>
-  <% end %>
-</ul> -->
+<!-- STATIC PAGE END -->
 
 <script>
   $(function () {
-    Sitbit.initialize();
     Sitbit.CURRENT_USER = {
       id: <%= current_user.id %>,
       username: "<%= current_user.username %>"
     };
+    Sitbit.initialize();
   });
 </script>

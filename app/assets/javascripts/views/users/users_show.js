@@ -1,5 +1,18 @@
-Sitbit.Views.UserShow = Backbone.View.extend({
+Sitbit.Views.UserDash = Backbone.CompositeView.extend({
+  template: JST['users/show'],
+  className: 'dashboard',
 
-  template: JST['users/show']
+  initialize: function () {
+    this.sits = this.model.sits();
+    this.listenTo(this.model, 'sync', this.render);
+  },
+
+  render: function () {
+    var contents = this.template({
+      user: this.model,
+    });
+    this.$el.html(contents);
+    return this;
+  }
 
 });
