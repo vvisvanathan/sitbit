@@ -1,7 +1,11 @@
 source 'https://rubygems.org'
+source 'https://rails-assets.org' do
+  gem 'rails-assets-raphael'
+end
 
 gem 'newrelic_rpm'
 
+gem 'bundler', '>= 1.8.4'
 gem 'backbone-on-rails'
 gem 'bcrypt'
 

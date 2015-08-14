@@ -11,7 +11,12 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
   },
 
   render: function () {
-    $('.page-title').text('Dashboard');
+    var pageTitle = this.model.escape('username');
+    if (this.model.isCurrentUser()) {
+      pageTitle = 'My Dashboard';
+    }
+    $('.page-title').text(pageTitle);
+
     var contents = this.template({
       user: this.model,
     });
