@@ -1,7 +1,7 @@
-<h5>Steps Tile</h5>
+<h5>Intervals Tile</h5>
 
 <ul class='intervals-tile-list'>
   <% sits.models.forEach(function (sit) { %>
-    <li><%= sit.attributes.steps_avoided %></li>
+    <li><%= sit.attributes.interval.in_hours %></li>
   <% }) %>
 </ul>

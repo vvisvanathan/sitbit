@@ -1,7 +1,7 @@
 <h5>Calories Tile</h5>
 
-<ul class='calories-tile-list'>
-  <% sits.each(function (sit) { %>
-    <li><%= sit.get('cal_stats') %></li>
+<ul class='intervals-tile-list'>
+  <% sits.models.forEach(function (sit) { %>
+    <li>( <%= sit.attributes.cal_stats.sit_cals %>, <%= sit.attributes.cal_stats.hyp_cals %> )</li>
   <% }) %>
 </ul>
