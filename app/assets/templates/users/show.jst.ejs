@@ -1,5 +1,24 @@
-<h1>User Dashboard</h1>
+<div class="graph-tiles">
+  <div class="tile intervals-tile">
+  </div>
 
-<p>
-  Owner: <%= user.escape('username') %>
-</p>
+  <div class="tile calories-tile">
+  </div>
+
+  <div class="tile steps-tile">
+  </div>
+</div>
+
+<div class="sidebar-tiles">
+  <div class="tile users-tile">
+  </div>
+
+  <div class="tile friends-tile">
+  </div>
+</div>
+
+<!-- <ul class='user-sits-list'>
+  <% user.sits().each(function (sit) { %>
+    <li><%= [sit.get('is_sleep'), sit.get('steps_avoided')] %></li>
+  <% }) %>
+</ul> -->

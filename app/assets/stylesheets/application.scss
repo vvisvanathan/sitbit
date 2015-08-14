@@ -24,6 +24,7 @@ body {
   position: absolute;
   background-color: #1D1D1D;
   color: white;
+  z-index: -100;
 }
 
 #navbar {
@@ -40,18 +41,127 @@ body {
   border-radius: 0px;
 }
 
+.page-title {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    margin: auto;
+    z-index: -1;
+}
+
+.navbar-right {
+  z-index: 10;
+}
+
 #content {
+  width: 100%;
+  position: absolute;
+  z-index: -50;
+  top: 50px; bottom: 0;
+  background: transparent;
+
+  .graph-tiles {
+    position: absolute;
+    z-index: -5;
+    top: 0; bottom: 0;
+    width: 70%;
+    display: inline-block;
+    margin: 10px auto;
+    padding: 5% auto;
+    background: transparent;
+
+    .intervals-tile {
+      display: block;
+      position: relative;
+      top: 0; bottom: 0;
+      z-index: -1;
+      float: right;
+      height: 55%;
+      width: 95%;
+      min-width: 350px;
+      min-height: 300px;
+      max-width: 710px;
+      background: white;
+      margin: 5px;
+      border-radius: 7px;
+    }
+
+    .calories-tile {
+      display: inline-block;
+      position: relative;
+      top: 50%; bottom: 100%;
+      z-index: -1;
+      float: right;
+      height: 40%;
+      width: 47.5%;
+      min-width: 200px;
+      min-height: 200px;
+      max-width: 350px;
+      background: white;
+      margin: 5px;
+      border-radius: 7px;
+    }
+
+    .steps-tile {
+      display: inline-block;
+      position: relative;
+      top: 50%; bottom: 100%;
+      z-index: -1;
+      float: right;
+      height: 40%;
+      width: 47.5%;
+      min-width: 200px;
+      min-height: 200px;
+      max-width: 350px;
+      background: white;
+      margin: 5px;
+      border-radius: 7px;
+    }
+  }
+
+  .sidebar-tiles {
+    position: absolute;
+    z-index: -5;
+    top: 0; bottom: 0; left: 70%;
+    width: 30%;
+    display: inline-block;
+    margin: 10px auto;
+    background: transparent;
+
+    .users-tile {
+      display: block;
+      position: relative;
+      top: 50%; bottom: 100%;
+      z-index: -1;
+      float: left;
+      height: 35%;
+      width: 65%;
+      min-width: 200px;
+      min-height: 200px;
+      background: maroon;
+      margin: 5px;
+      border-radius: 7px;
+    }
+
+    .friends-tile {
+      display: block;
+      position: relative;
+      top: 50%; bottom: 100%;
+      z-index: -1;
+      float: left;
+      height: 60%;
+      width: 65%;
+      min-width: 200px;
+      background: lightgray;
+      margin: 5px;
+      border-radius: 7px;
+    }
+  }
 }
 
 #navbar div .user-searcher {
   min-height: 25px;
-}
-
-.auth-b {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background: #1D1D1D url(http://www.chictip.com/wp-content/uploads/2011/04/Living-Room_8x10-version_JPEG.jpg) no-repeat center center;
 }
 
 .filter-div {
@@ -85,6 +195,13 @@ body {
   background: -ms-linear-gradient(top, rgba(191,0,0,1) 0%, rgba(153,0,0,1) 100%);
   background: linear-gradient(to bottom, rgba(191,0,0,1) 0%, rgba(153,0,0,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bf0000', endColorstr='#990000', GradientType=0 );
+}
+
+.auth-b {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: #1D1D1D url(http://www.chictip.com/wp-content/uploads/2011/04/Living-Room_8x10-version_JPEG.jpg) no-repeat center center;
 }
 
 .auth-form {
