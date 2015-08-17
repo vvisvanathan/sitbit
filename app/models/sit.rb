@@ -65,6 +65,8 @@ class Sit < ActiveRecord::Base
   end
 
   def hyp_cals
+    return (self.sit_cals / 0.85) if self.is_sleep
+
     return self.sit_cals * (1.0 + ( (self.actx ** 2.25) / 10 ))
   end
 
@@ -74,17 +76,19 @@ class Sit < ActiveRecord::Base
 
   def cal_stats
     sitc = sit_cals
-    scr = (sitc / self.interval[:in_hours]) * 24
+    scr = (sitc / self.interval[:in_hours])
     hypc = hyp_cals
-    hcr = (hypc / self.interval[:in_hours] ) * 24
+    hcr = (hypc / self.interval[:in_hours] )
     net = hypc - sitc
+    netr = hcr - scr
 
     return {
       sit_cals: sitc,
       sit_rate: scr,
       hyp_cals: hypc,
       hyp_rate: hcr,
-      net: net
+      net: net,
+      net_rate: netr
     }
   end
 

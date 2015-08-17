@@ -8,9 +8,3 @@ json.extract! sit,
               :actx,
               :created_at,
               :updated_at
-
-if show_user
-  json.user do
-    json.extract! sit.user, :id, :username, :sex
-  end
-end

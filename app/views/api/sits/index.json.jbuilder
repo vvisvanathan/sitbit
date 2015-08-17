@@ -1,3 +1,3 @@
 json.array! @sits do |sit|
-  json.partial!('sit', sit: sit, show_user: true)
+  json.partial!('sit', sit: sit)
 end

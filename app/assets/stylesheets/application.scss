@@ -71,6 +71,14 @@ body {
     padding: 5% auto;
     background: transparent;
 
+    .tile {
+      padding: 10px 20px 10px 20px;
+
+      h4 {
+        text-align: center;
+      }
+    }
+
     .calories-tile {
       display: block;
       position: relative;

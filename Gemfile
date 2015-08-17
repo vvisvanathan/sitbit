@@ -1,7 +1,4 @@
 source 'https://rubygems.org'
-source 'https://rails-assets.org' do
-  gem 'rails-assets-raphael'
-end
 
 gem 'newrelic_rpm'
 
