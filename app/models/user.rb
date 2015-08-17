@@ -35,11 +35,16 @@ class User < ActiveRecord::Base
     return { pace: pace, stride: stride }
   end
 
-  # TODO: delete rhr?
-  def rhr
-    return (45 + (10 * self.actx)) + (self.age / 11) if self.sex == 'm'
-    return (50 + (10 * self.actx)) + (self.age / 11) if self.sex == 'f'
-    return (47 + (10 * self.actx)) + (self.age / 11)
+  def rmr
+    if self.sex == 'm'
+      wX, hX, aX, oX = 6.25, 12.7, 6.76, 66
+    elsif self.sex == 'f'
+      wX, hX, aX, oX = 4.35, 4.7, 4.68, 655
+    else
+      wX, hX, aX, oX = (6.25 + 4.35)/2, (12.7 + 4.7)/2, (6.76 + 4.68)/2, (66 + 655)/2
+    end
+
+    return (((self.weight * wX) + (self.height * hX) - (self.age * aX) + oX) * (1.0 + ( (self.actx ** 2.25) / 10 ))) / 24
   end
 
   # authentication:

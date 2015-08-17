@@ -7,8 +7,7 @@ json.extract! user,
               :height,
               :actx,
               :cals_in,
-              :walk_stats,
-              :created_at
+              :rmr
 
 if show_sits
   json.sits do

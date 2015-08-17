@@ -4,7 +4,5 @@ json.extract! sit,
               :start_time,
               :end_time,
               :is_sleep,
-              :weight,
-              :actx,
               :created_at,
               :updated_at

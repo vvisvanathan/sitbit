@@ -14,7 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require underscore
-//= require raphael
 //= require backbone
 //= require sitbit
 //= require_tree ./utils

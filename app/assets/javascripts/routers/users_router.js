@@ -15,7 +15,8 @@ Sitbit.Routers.UserRouter = Backbone.Router.extend({
   userDash: function () {
     var user = this.users.getOrFetch(Sitbit.CURRENT_USER.id);
     var userShowView = new Sitbit.Views.UserShow({
-      model: user
+      model: user,
+      collection: this.users
     });
 
     this._swapView(userShowView);
@@ -32,7 +33,8 @@ Sitbit.Routers.UserRouter = Backbone.Router.extend({
   userShow: function (id) {
     var user = this.users.getOrFetch(id);
     var userShowView = new Sitbit.Views.UserShow({
-      model: user
+      model: user,
+      collection: this.users
     });
 
     this._swapView(userShowView);

@@ -2,7 +2,8 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
   template: JST['users/sits/calories/calories_tile'],
   className: 'cals-tile-content',
 
-  initialize: function () {
+  initialize: function (options) {
+    this.user = options.user;
     this.listenTo(this.collection, 'sync add remove', this.render);
   },
 
@@ -49,7 +50,24 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
         }
       ],
       "axes": [
-        {"type": "x", "scale": "x", "values": [0, 12, 23]},
+        {
+          "type": "x",
+          "scale": "x",
+          "values": [0, 12, 23],
+          "properties": {
+            "labels": {
+              "fill": {"value": "gray"},
+              "fontSize": {"value": 14}
+              //figure out "text"
+            },
+            "ticks": {
+              "strokeWidth": {"value": 0}
+            },
+            "axis": {
+              "strokeWidth": {"value": 0}
+            }
+          }
+        },
         {"type": "y", "scale": "y"}
       ],
       "marks": [
@@ -78,29 +96,70 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
   },
 
   parseCalsData: function () {
-    var sitsToday = this.grabSitsToday();
+    var sitData = this.grabSitsToday();
     var output = [];
+    var cutoff = new Date(Date.now()).getHours();
 
-    debugger;
+    // TODO: fix resting metabolic rate!! Also, include sleep
 
     for (var i = 0; i < 24; i++) {
-      output.push({ "x": i, "y": i*10 });
+      var lastBar = -233;
+
+      if (output[i-1]) { lastBar += output[i-1].y; }
+      if (i > cutoff) { lastBar = 0; }
+      output.push({ "x": i, "y": lastBar });
     }
 
-    return output;
+    sitData.forEach(function (sitdata) {
 
+      var s = parseInt(sitdata.start);
+      var sf = sitdata.start - s;
+      var e = parseInt(sitdata.end);
+      var ef = sitdata.end - s;
+
+      for (var j = s; j <= e; j++) {
+        var prevBar = output[j].y;
+        if (output[j-1]) { prevBar = output[j-1].y; }
+        output[j].y = prevBar + (sitdata.sit_rate * (j+1));
+      }
+
+      for (var i = e+1; i <= cutoff; i++) {
+        output[i].y += output[e].y;
+      }
+    }.bind(output));
+
+    return output;
   },
 
   grabSitsToday: function () {
+    // TODO: sort sits before returning
+    // TODO: this method needs a lot of tuning up to include sleep and fractions
+
     var output = [];
     var nd = (new Date(Date.now())).setHours(0,0,0,0);
 
     this.collection.models.forEach(function (sit) {
-      var sd = new Date(sit.attributes.start_time).setHours(0,0,0,0);
-      var ed = new Date(sit.attributes.end_time).setHours(0,0,0,0);
+      var sd = new Date(sit.attributes.start_time);
+      var ed = new Date(sit.attributes.end_time);
+      var sdd = new Date(sit.attributes.start_time).setHours(0,0,0,0);
+      var edd = new Date(sit.attributes.end_time).setHours(0,0,0,0);
 
-      if ( sd === nd || ed === nd) {
-        output.push(sit);
+      if ( sdd === nd || edd === nd ) {
+
+        var st = 0;
+        var et = 23;
+        if (sdd < nd) { st = 0; } else {
+          st = sd.getHours() + (sd.getMinutes()/60);
+        }
+        if (edd > nd) { et = 23; } else {
+          et = ed.getHours() + (ed.getMinutes()/60);
+        }
+
+        output.push({
+          "start" : st,
+          "end" : et,
+          "sit_rate" : sit.attributes.cal_stats.sit_rate
+        });
       }
     });
 
