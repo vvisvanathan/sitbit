@@ -6,7 +6,6 @@ Sitbit.Views.UsersIndex = Backbone.CompositeView.extend({
   },
 
   render: function () {
-    debugger;
     this.$el.html(this.template({ users: this.collection }));
 
     return this;

@@ -2,6 +2,6 @@
 
 <ul class='user-list'>
   <% users.each(function (user) { %>
-    <li><%= user.get('username') %></li>
+    <li><a href="#users/<%= user.get('id') %>"><%= user.get('username') %></a></li>
   <% }) %>
 </ul>

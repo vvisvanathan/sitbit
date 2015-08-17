@@ -50,7 +50,7 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
     var subview = new Sitbit.Views.StepsTile({ collection: this.sits });
     this.addSubview('.steps-tile', subview);
   },
-  
+
   // addFriendsView: function () {
   //   var subview = new Sitbit.Views.FriendsTile({ collection: this.friends });
   //   this.addSubview('.steps-tile', subview);
