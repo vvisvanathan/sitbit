@@ -20,7 +20,8 @@ if show_sits
                          :is_sleep,
                          :interval,
                          :cal_stats,
-                         :steps_avoided
+                         :steps_avoided,
+                         :hourly_split
     end
   end
 end

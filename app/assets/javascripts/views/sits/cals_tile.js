@@ -3,8 +3,11 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
   className: 'cals-tile-content',
 
   initialize: function (options) {
+    // TODO: After adding sit, success callback to rerender
+
     this.user = options.user;
-    this.listenTo(this.collection, 'sync add remove', this.render);
+    // this.listenTo(this.collection, 'add remove', this.render);
+    this.listenTo(this.user, 'sync', this.render);
   },
 
   render: function () {
@@ -23,10 +26,11 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
   },
 
   vegaJson: function () {
+    var hourNow = (new Date(Date.now())).getHours() + 1;
 
     var graphSpecs = {
-      "width": $("#cals-tile").width() - 50,
-      "height": $("#cals-tile").height() - 80,
+      "width": $("#cals-tile").width() - 60,
+      "height": $("#cals-tile").height() - 75,
       // "padding": {"top": 30, "left": 30, "bottom": 30, "right": 30},
       "data": [
         {
@@ -54,11 +58,11 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
           "type": "x",
           "scale": "x",
           "values": [0, 12, 23],
+          "offset": -10,
           "properties": {
             "labels": {
               "fill": {"value": "gray"},
-              "fontSize": {"value": 14}
-              //figure out "text"
+              "fontSize": {"value": 12}
             },
             "ticks": {
               "strokeWidth": {"value": 0}
@@ -68,7 +72,25 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
             }
           }
         },
-        {"type": "y", "scale": "y"}
+        {
+          "type": "y",
+          "scale": "y",
+          "ticks": 3,
+          "grid": true,
+          "properties": {
+            "labels": {
+              "fill": {"value": "gray"},
+              "fontSize": {"value": 12}
+              //figure out "text"
+            },
+            "ticks": {
+              "strokeWidth": {"value": 0}
+            },
+            "axis": {
+              "strokeWidth": {"value": 0}
+            }
+          }
+        }
       ],
       "marks": [
         {
@@ -88,6 +110,24 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
               "fill": {"value": "maroon"}
             }
           }
+        },
+        {
+          "type": "rect",
+          "from": {"data": "table"},
+          "properties": {
+            "enter": {
+              "x": {"scale": "x", "value": hourNow},
+              "width": {"value": 2},
+              "y": {"value": 5},
+              "y2": {"value": $("#cals-tile").height() - 80}
+            },
+            "update": {
+              "fill": {"value": "red"}
+            },
+            "hover": {
+              "fill": {"value": "maroon"}
+            }
+          }
         }
       ]
     };
@@ -97,13 +137,13 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
 
   parseCalsData: function () {
     var sitData = this.grabSitsToday();
-    var output = [];
     var cutoff = new Date(Date.now()).getHours();
+    var output = [];
 
     // TODO: fix resting metabolic rate!! Also, include sleep
 
     for (var i = 0; i < 24; i++) {
-      var lastBar = -233;
+      var lastBar = -(this.user.escape('rmr'));
 
       if (output[i-1]) { lastBar += output[i-1].y; }
       if (i > cutoff) { lastBar = 0; }
@@ -134,9 +174,11 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
   grabSitsToday: function () {
     // TODO: sort sits before returning
     // TODO: this method needs a lot of tuning up to include sleep and fractions
+    // debugger;
 
     var output = [];
-    var nd = (new Date(Date.now())).setHours(0,0,0,0);
+    var nd = new Date(Date.now());
+    var ndd = (new Date(Date.now())).setHours(0,0,0,0);
 
     this.collection.models.forEach(function (sit) {
       var sd = new Date(sit.attributes.start_time);
@@ -144,21 +186,14 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
       var sdd = new Date(sit.attributes.start_time).setHours(0,0,0,0);
       var edd = new Date(sit.attributes.end_time).setHours(0,0,0,0);
 
-      if ( sdd === nd || edd === nd ) {
+      if ( sdd === ndd || edd === ndd ) {
 
-        var st = 0;
-        var et = 23;
-        if (sdd < nd) { st = 0; } else {
-          st = sd.getHours() + (sd.getMinutes()/60);
-        }
-        if (edd > nd) { et = 23; } else {
-          et = ed.getHours() + (ed.getMinutes()/60);
-        }
+        
 
         output.push({
-          "start" : st,
-          "end" : et,
-          "sit_rate" : sit.attributes.cal_stats.sit_rate
+          "is_sleep" : sit.attributes.is_sleep,
+          "sit_rate" : sit.attributes.cal_stats.sit_rate,
+          "hourlys" : sit.attributes.hourly_split
         });
       }
     });

@@ -39,11 +39,11 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
   },
 
   addCalsTileView: function () {
-    var subview = new Sitbit.Views.CalsTile({
+    this.calsView = new Sitbit.Views.CalsTile({
       collection: this.sits,
       user: this.model
     });
-    this.addSubview('.calories-tile', subview);
+    this.addSubview('.calories-tile', this.calsView);
   },
 
   addStepsTileView: function () {
@@ -57,7 +57,8 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
   // },
   //
   // addProfileToolsView: function () {
-  //   var subview = new Sitbit.Views.ProfileToolsTile({ collection: this.sits });
+  // pass in this.calsView
+  //   var subview = new Sitbit.Views.ProfileToolsTile({ collection: this.sits, calsView: this.calsView });
   //   this.addSubview('.steps-tile', subview);
   // }
 });

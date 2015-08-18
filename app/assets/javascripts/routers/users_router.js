@@ -9,7 +9,7 @@ Sitbit.Routers.UserRouter = Backbone.Router.extend({
     '' : 'userDash',
     'users' : 'userIndex',
     'users/:id' : 'userShow',
-    'users/:id/edit' : 'userEdit',
+    'users/:id/edit' : 'userEdit'
   },
 
   userDash: function () {

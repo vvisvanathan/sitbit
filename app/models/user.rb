@@ -36,15 +36,19 @@ class User < ActiveRecord::Base
   end
 
   def rmr
+    # Resting Metabolic Rate (approx.)
     if self.sex == 'm'
-      wX, hX, aX, oX = 6.25, 12.7, 6.76, 66
+      wX, hX, aX, oX = 6.25, 12.7, 6.76, 66.0
     elsif self.sex == 'f'
-      wX, hX, aX, oX = 4.35, 4.7, 4.68, 655
+      wX, hX, aX, oX = 4.35, 4.7, 4.68, 655.0
     else
-      wX, hX, aX, oX = (6.25 + 4.35)/2, (12.7 + 4.7)/2, (6.76 + 4.68)/2, (66 + 655)/2
+      wX, hX, aX, oX = 5.3, 8.7, 5.72, 360.5
     end
 
-    return (((self.weight * wX) + (self.height * hX) - (self.age * aX) + oX) * (1.0 + ( (self.actx ** 2.25) / 10 ))) / 24
+    burn_rate = (self.weight * wX) + (self.height * hX) - (self.age * aX) + oX
+    normalizer = (1.0 + (self.actx ** 2.25) / 10 ) / 24
+
+    return burn_rate * normalizer
   end
 
   # authentication:

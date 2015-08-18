@@ -11,7 +11,7 @@
 #  is_sleep   :boolean          default(FALSE)
 #  weight     :integer          not null
 #  actx       :integer          not null
-#
+
 
 class Sit < ActiveRecord::Base
   validates :user, :start_time, :end_time, :weight, :actx, presence: true
@@ -22,22 +22,11 @@ class Sit < ActiveRecord::Base
   belongs_to :user
 
   def interval
-    interval = interval_in_seconds
-
-    return {
-      in_seconds: interval,
-      in_minutes: (interval / 60),
-      in_hours: (interval / 3600 ),
-      in_days: (interval / (3600 * 24))
-    }
-  end
-
-  def interval_in_seconds
-    return self.end_time.to_f - self.start_time.to_f
+    return (self.end_time.to_f - self.start_time.to_f) /3600
   end
 
   def sit_cals_rate
-    return (self.sit_cals / self.interval[:in_hours] ) * 24
+    return (self.sit_cals / self.interval ) * 24
   end
 
   def sit_cals
@@ -47,8 +36,8 @@ class Sit < ActiveRecord::Base
     user_attrs = user.attributes
     sex = user_attrs['sex']
     age = user_attrs['age']
-    weight = self.weight
     height = user_attrs['height']
+    weight = self.weight
     is_sleep ? sleepx = 0.75 : sleepx = 1
 
     if sex == 'm'
@@ -56,51 +45,63 @@ class Sit < ActiveRecord::Base
     elsif sex == 'f'
       wX, hX, aX, oX = 4.35, 4.7, 4.68, 655
     else
-      wX, hX, aX, oX = (6.25 + 4.35)/2, (12.7 + 4.7)/2, (6.76 + 4.68)/2, (66 + 655)/2
+      wX, hX, aX, oX = 5.3, 8.7, 5.72, 360.5
     end
 
-    hc = ((weight * wX) + (height * hX) - (age * aX) + oX) * self.interval[:in_days] * sleepx
-
-    return hc
-  end
-
-  def hyp_cals
-    return (self.sit_cals / 0.85) if self.is_sleep
-
-    return self.sit_cals * (1.0 + ( (self.actx ** 2.25) / 10 ))
-  end
-
-  def hyp_cals_rate
-    return (self.hyp_cals / self.interval[:in_hours] ) * 24
+    burn_rate = (weight * wX) + (height * hX) - (age * aX) + oX
+    return burn_rate * self.interval * (sleepx/24.0)
   end
 
   def cal_stats
     sitc = sit_cals
-    scr = (sitc / self.interval[:in_hours])
-    hypc = hyp_cals
-    hcr = (hypc / self.interval[:in_hours] )
-    net = hypc - sitc
-    netr = hcr - scr
+    scr = (sitc / self.interval)
 
-    return {
-      sit_cals: sitc,
-      sit_rate: scr,
-      hyp_cals: hypc,
-      hyp_rate: hcr,
-      net: net,
-      net_rate: netr
-    }
+    return { sit_cals: sitc, sit_rate: scr }
   end
-
 
   def steps_avoided
     return 0 if self.is_sleep
     uws = user.walk_stats
-    dist_avoided = (uws[:pace] * self.interval[:in_hours])
+    dist_avoided = (uws[:pace] * self.interval)
     steps_avoided = (dist_avoided * 63360.0) / uws[:stride]
     return steps_avoided * (1 + 0.4*(self.actx - 3))
   end
 
+  def hourly_split
+    s_local = self.start_time.localtime
+    e_local = self.end_time.localtime
+    t_start = s_local.hour + (s_local.min/60.0)
+    t_end = e_local.hour + (e_local.min/60.0)
+    output = []
+
+    day_incr = 0
+    sincr = t_start.to_i
+    eincr = t_end.to_i
+    until sincr == eincr
+      if sincr > 23
+        sincr = 0
+        day_incr = 1
+      end
+      t_start.between?(sincr, sincr + 1) ? startmark = t_start : startmark = sincr
+      t_end.between?(sincr, sincr + 1) ? endmark = t_end : endmark = (sincr + 1)
+
+      output.push({
+        date: {
+          day: s_local.day + day_incr,
+          month: s_local.month,
+          year: s_local.year
+        },
+        h_start: startmark,
+        h_end: endmark
+      })
+
+      sincr += 1
+    end
+
+    # date used to parse day/week/month/year in JS
+    # h_start/h_end are in decimal time i.e. 1:15pm -> 13.25
+    return output
+  end
 
   private
 
