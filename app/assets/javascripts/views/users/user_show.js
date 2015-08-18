@@ -4,9 +4,7 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
 
   initialize: function () {
     this.sits = this.model.sits();
-
     this.listenTo(this.model, 'sync', this.render);
-    // TODO: check this pattern with a TA
     this.addTileSubviews();
   },
 
@@ -22,32 +20,36 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
     });
     this.$el.html(contents);
 
+    // TODO: might be double rendering. Experiment with leaving this out
+    // or changing "addSubview()" method calls in add__TilesView methods
     this.attachSubviews();
 
     return this;
   },
 
   addTileSubviews: function () {
-    this.addIntsTileView();
-    this.addCalsTileView();
-    this.addStepsTileView();
+    var context = {
+      collection: this.sits,
+      user: this.model
+    };
+
+    this.addIntsTileView(context);
+    this.addCalsTileView(context);
+    this.addStepsTileView(context);
   },
 
-  addIntsTileView: function () {
-    var subview = new Sitbit.Views.IntsTile({ collection: this.sits });
+  addIntsTileView: function (context) {
+    var subview = new Sitbit.Views.IntsTile(context);
     this.addSubview('.intervals-tile', subview);
   },
 
-  addCalsTileView: function () {
-    this.calsView = new Sitbit.Views.CalsTile({
-      collection: this.sits,
-      user: this.model
-    });
+  addCalsTileView: function (context) {
+    this.calsView = new Sitbit.Views.CalsTile(context);
     this.addSubview('.calories-tile', this.calsView);
   },
 
-  addStepsTileView: function () {
-    var subview = new Sitbit.Views.StepsTile({ collection: this.sits });
+  addStepsTileView: function (context) {
+    var subview = new Sitbit.Views.StepsTile(context);
     this.addSubview('.steps-tile', subview);
   },
 

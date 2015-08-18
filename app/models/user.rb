@@ -48,7 +48,9 @@ class User < ActiveRecord::Base
     burn_rate = (self.weight * wX) + (self.height * hX) - (self.age * aX) + oX
     normalizer = (1.0 + (self.actx ** 2.25) / 10 ) / 24
 
-    return burn_rate * normalizer
+    # Assumption: calorie intake is constant throughout day. Not a
+    # great assumption, but for the scope of this project it's okay.
+    return (burn_rate * normalizer) - (self.cals_in / 24)
   end
 
   # authentication:

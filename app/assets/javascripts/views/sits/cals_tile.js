@@ -3,16 +3,13 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
   className: 'cals-tile-content',
 
   initialize: function (options) {
-    // TODO: After adding sit, success callback to rerender
-
+    // TODO: After adding sit, success callback to rerender graph only
     this.user = options.user;
-    // this.listenTo(this.collection, 'add remove', this.render);
-    this.listenTo(this.user, 'sync', this.render);
+    this.listenTo(this.user, 'sync', this.vegaParse);
   },
 
   render: function () {
     this.$el.html(this.template({ sits: this.collection }));
-    this.vegaParse();
     return this;
   },
 
@@ -58,7 +55,7 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
           "type": "x",
           "scale": "x",
           "values": [0, 12, 23],
-          "offset": -10,
+          "offset": -5,
           "properties": {
             "labels": {
               "fill": {"value": "gray"},
@@ -104,10 +101,10 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
               "y2": {"scale": "y", "value": 0}
             },
             "update": {
-              "fill": {"value": "darkgray"}
+              "fill": {"data": "table", "field": "c"}
             },
             "hover": {
-              "fill": {"value": "maroon"}
+              "fill": {"data": "table", "field": "hc"}
             }
           }
         },
@@ -118,8 +115,8 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
             "enter": {
               "x": {"scale": "x", "value": hourNow},
               "width": {"value": 2},
-              "y": {"value": 5},
-              "y2": {"value": $("#cals-tile").height() - 80}
+              "y": {"value": 0},
+              "y2": {"value": $("#cals-tile").height() - 75}
             },
             "update": {
               "fill": {"value": "red"}
@@ -138,63 +135,46 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
   parseCalsData: function () {
     var sitData = this.grabSitsToday();
     var cutoff = new Date(Date.now()).getHours();
-    var output = [];
-
-    // TODO: fix resting metabolic rate!! Also, include sleep
+    var user_rmr = this.user.escape('rmr');
+    var output = new Array(24);
 
     for (var i = 0; i < 24; i++) {
-      var lastBar = -(this.user.escape('rmr'));
-
-      if (output[i-1]) { lastBar += output[i-1].y; }
-      if (i > cutoff) { lastBar = 0; }
-      output.push({ "x": i, "y": lastBar });
+      var bar = 0;
+      if (i <= cutoff) { bar = (i+1) * user_rmr; }
+      output[i] = {
+        "x": i,
+        "y": -bar,
+        "c": "lightgray",
+        "hc": "lightblue"
+      };
     }
 
-    sitData.forEach(function (sitdata) {
+    sitData.forEach(function (sitdatum) {
+      sitdatum.forEach(function (hourly) {
+        if (hourly.date.day === new Date(Date.now()).getDate()) {
+          var idx = parseInt(hourly.h_start);
+          var frac = hourly.h_end - hourly.h_start;
+          output[idx].y += (hourly.scr * frac);
 
-      var s = parseInt(sitdata.start);
-      var sf = sitdata.start - s;
-      var e = parseInt(sitdata.end);
-      var ef = sitdata.end - s;
-
-      for (var j = s; j <= e; j++) {
-        var prevBar = output[j].y;
-        if (output[j-1]) { prevBar = output[j-1].y; }
-        output[j].y = prevBar + (sitdata.sit_rate * (j+1));
-      }
-
-      for (var i = e+1; i <= cutoff; i++) {
-        output[i].y += output[e].y;
-      }
+          hourly.is_sleep ? output[idx].c = "darkgray" : output[idx].c = "gray";
+          if (output[idx].y > 0) { output[idx].hc = "lightgreen"; }
+        }
+      }.bind(output));
     }.bind(output));
 
     return output;
   },
 
   grabSitsToday: function () {
-    // TODO: sort sits before returning
-    // TODO: this method needs a lot of tuning up to include sleep and fractions
-    // debugger;
-
     var output = [];
-    var nd = new Date(Date.now());
-    var ndd = (new Date(Date.now())).setHours(0,0,0,0);
+    var ndd = new Date(Date.now()).setHours(0,0,0,0);
 
     this.collection.models.forEach(function (sit) {
-      var sd = new Date(sit.attributes.start_time);
-      var ed = new Date(sit.attributes.end_time);
       var sdd = new Date(sit.attributes.start_time).setHours(0,0,0,0);
       var edd = new Date(sit.attributes.end_time).setHours(0,0,0,0);
 
       if ( sdd === ndd || edd === ndd ) {
-
-        
-
-        output.push({
-          "is_sleep" : sit.attributes.is_sleep,
-          "sit_rate" : sit.attributes.cal_stats.sit_rate,
-          "hourlys" : sit.attributes.hourly_split
-        });
+        output.push(sit.attributes.hourly_split);
       }
     });
 

@@ -6,7 +6,11 @@ class Api::UsersController < ApplicationController
   end
 
   def show
-    # TODO: Includes? yes
+    # TODO: params: {
+    #   start_date:
+    #   end_date:
+    # }
+    # where("sits.start_time < ?"). 
     @user = User.includes(:sits).find(params[:id])
     render :show
   end

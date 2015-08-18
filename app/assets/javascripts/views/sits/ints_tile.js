@@ -10,7 +10,7 @@ Sitbit.Views.IntsTile = Backbone.View.extend ({
     this.$el.html(this.template({ sits: this.collection }));
     this.vegaParse();
     return this;
-    },
+  },
 
     vegaParse: function () {
     function parse(spec) {

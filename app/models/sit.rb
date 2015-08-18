@@ -25,10 +25,6 @@ class Sit < ActiveRecord::Base
     return (self.end_time.to_f - self.start_time.to_f) /3600
   end
 
-  def sit_cals_rate
-    return (self.sit_cals / self.interval ) * 24
-  end
-
   def sit_cals
     # Male (imperial): RMR = [(6.25 x WP) + (12.7 x HI) - (6.76 x age) + 66] x 1.1
     # Female (imperial): RMR = [(4.35 x WP) + (4.7 x HI) - 4.68 x age) + 655] x 1.1
@@ -38,7 +34,7 @@ class Sit < ActiveRecord::Base
     age = user_attrs['age']
     height = user_attrs['height']
     weight = self.weight
-    is_sleep ? sleepx = 0.75 : sleepx = 1
+    is_sleep ? sleepx = 0.85 : sleepx = 1
 
     if sex == 'm'
       wX, hX, aX, oX = 6.25, 12.7, 6.76, 66
@@ -62,9 +58,10 @@ class Sit < ActiveRecord::Base
   def steps_avoided
     return 0 if self.is_sleep
     uws = user.walk_stats
-    dist_avoided = (uws[:pace] * self.interval)
+    normalizer = 0.15 * (1 + 0.45*(self.actx - 3))
+    dist_avoided = (uws[:pace] * self.interval) * normalizer
     steps_avoided = (dist_avoided * 63360.0) / uws[:stride]
-    return steps_avoided * (1 + 0.4*(self.actx - 3))
+    return steps_avoided
   end
 
   def hourly_split
@@ -76,7 +73,7 @@ class Sit < ActiveRecord::Base
 
     day_incr = 0
     sincr = t_start.to_i
-    eincr = t_end.to_i
+    eincr = t_end.to_i + 1
     until sincr == eincr
       if sincr > 23
         sincr = 0
@@ -92,7 +89,10 @@ class Sit < ActiveRecord::Base
           year: s_local.year
         },
         h_start: startmark,
-        h_end: endmark
+        h_end: endmark,
+        is_sleep: self.is_sleep,
+        scr: self.sit_cals / self.interval,
+        step_rate: self.steps_avoided / self.interval
       })
 
       sincr += 1

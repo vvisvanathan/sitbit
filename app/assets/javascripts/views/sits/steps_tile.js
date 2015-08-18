@@ -2,13 +2,14 @@ Sitbit.Views.StepsTile = Backbone.View.extend ({
   template: JST['users/sits/steps/steps_tile'],
   className: 'steps-tile-content',
 
-  initialize: function () {
-    this.listenTo(this.collection, 'sync add remove', this.render);
+  initialize: function (options) {
+    // TODO: After adding sit, success callback to rerender graph only
+    this.user = options.user;
+    this.listenTo(this.collection, 'sync add remove', this.vegaParse);
   },
 
   render: function () {
     this.$el.html(this.template({ sits: this.collection }));
-    this.vegaParse();
     return this;
   },
 
@@ -18,7 +19,6 @@ Sitbit.Views.StepsTile = Backbone.View.extend ({
     }
 
     var content = this.vegaJson();
-
     parse(content);
   },
 
@@ -88,5 +88,42 @@ Sitbit.Views.StepsTile = Backbone.View.extend ({
     };
 
     return graphSpecs;
+  },
+
+  parseStepsData: function () {
+    var sitData = this.grabSitsToday();
+    var cutoff = new Date(Date.now()).getHours();
+    var user_rmr = this.user.escape('rmr');
+    var output = new Array(24);
+    for (var i = 0; i < output.length; i++) { output[i] = {"x": i, "y": 0}; }
+
+    sitData.forEach(function (sitdatum) {
+      sitdatum.forEach(function (hourly) {
+        if (hourly.date.day === new Date(Date.now()).getDate()) {
+          var idx = parseInt(hourly.h_start);
+          var frac = hourly.h_end - hourly.h_start;
+          output[idx].y = (hourly.step_rate * frac);
+        }
+      }.bind(output));
+    }.bind(output));
+
+    return output;
+  },
+
+  grabSitsToday: function () {
+    var output = [];
+    var ndd = new Date(Date.now()).setHours(0,0,0,0);
+
+    this.collection.models.forEach(function (sit) {
+      var sdd = new Date(sit.attributes.start_time).setHours(0,0,0,0);
+      var edd = new Date(sit.attributes.end_time).setHours(0,0,0,0);
+
+      if ( sdd === ndd || edd === ndd ) {
+        output.push(sit.attributes.hourly_split);
+      }
+    });
+
+    return output;
   }
+  
 });
