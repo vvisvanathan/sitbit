@@ -32,12 +32,15 @@ Sitbit.Collections.Sits = Backbone.Collection.extend({
     this._sitsToday = [];
     var ndd = new Date(Date.now()).setHours(0,0,0,0);
 
-    this.models.forEach(function (sit) {
-      var sdd = new Date(sit.attributes.start_time).setHours(0,0,0,0);
-      var edd = new Date(sit.attributes.end_time).setHours(0,0,0,0);
+    this.each(function (sit) {
+      var sdd = new Date(sit.get('start_time')).setHours(0,0,0,0);
+      var edd = new Date(sit.get('end_time')).setHours(0,0,0,0);
 
+      if (sit.get("hourly_split") === undefined) {
+  debugger;
+}
       if ( sdd === ndd || edd === ndd ) {
-        this._sitsToday.push(sit.attributes.hourly_split);
+        this._sitsToday.push(sit.get("hourly_split"));
       }
     }.bind(this));
 

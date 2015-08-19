@@ -146,7 +146,7 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
 
     for (var i = 0; i < 24; i++) {
       var bar = 0;
-      if (i <= cutoff) { bar = (i+1) * user_rmr; }
+      if (i <= cutoff) { bar = user_rmr; }
       output[i] = {
         "x": i,
         "y": -bar,
@@ -160,7 +160,7 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
         if (hourly.date.day === new Date(Date.now()).getDate()) {
           var idx = parseInt(hourly.h_start);
           var frac = hourly.h_end - hourly.h_start;
-          output[idx].y += (hourly.scr * frac);
+          output[idx].y += hourly.scr * frac;
 
           hourly.is_sleep ? output[idx].c = "darkgray" : output[idx].c = "gray";
           if (output[idx].y > 0) { output[idx].hc = "lightgreen"; }

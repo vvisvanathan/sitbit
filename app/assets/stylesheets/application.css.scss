@@ -12,7 +12,6 @@
  *
  *= require_tree .
  *= require_self
- *= require bootstrap-timepicker
  */
 
 @import "bootstrap-sprockets";
@@ -65,7 +64,7 @@ body {
     position: absolute;
     z-index: -5;
     top: 0; bottom: 0;
-    width: 70%;
+    width: 60%;
     display: inline-block;
     margin: 10px auto;
     padding: 5% auto;
@@ -147,8 +146,8 @@ body {
   .sidebar-tiles {
     position: absolute;
     z-index: -5;
-    top: 0; bottom: 0; left: 70%;
-    width: 30%;
+    top: 0; bottom: 0; left: 60%;
+    width: 40%;
     display: inline-block;
     margin: 10px auto;
     background: transparent;
@@ -160,12 +159,20 @@ body {
       z-index: -1;
       float: left;
       height: 35%;
-      width: 65%;
-      min-width: 200px;
+      width: 60%;
+      min-width: 300px;
       min-height: 200px;
-      background: maroon;
       margin: 5px;
       border-radius: 7px;
+
+      background: rgba(255,0,85,1);
+      background: -moz-linear-gradient(top, rgba(255,0,85,1) 0%, rgba(161,0,27,1) 100%);
+      background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,0,85,1)), color-stop(100%, rgba(161,0,27,1)));
+      background: -webkit-linear-gradient(top, rgba(255,0,85,1) 0%, rgba(161,0,27,1) 100%);
+      background: -o-linear-gradient(top, rgba(255,0,85,1) 0%, rgba(161,0,27,1) 100%);
+      background: -ms-linear-gradient(top, rgba(255,0,85,1) 0%, rgba(161,0,27,1) 100%);
+      background: linear-gradient(to bottom, rgba(255,0,85,1) 0%, rgba(161,0,27,1) 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0055', endColorstr='#a1001b', GradientType=0 );
     }
 
     .friends-tile {
@@ -175,11 +182,19 @@ body {
       z-index: -1;
       float: left;
       height: 60%;
-      width: 65%;
-      min-width: 200px;
-      background: lightgray;
+      width: 60%;
+      min-width: 300px;
       margin: 5px;
       border-radius: 7px;
+
+      background: rgba(163,226,255,1);
+      background: -moz-linear-gradient(top, rgba(163,226,255,1) 0%, rgba(69,128,191,1) 100%);
+      background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(163,226,255,1)), color-stop(100%, rgba(69,128,191,1)));
+      background: -webkit-linear-gradient(top, rgba(163,226,255,1) 0%, rgba(69,128,191,1) 100%);
+      background: -o-linear-gradient(top, rgba(163,226,255,1) 0%, rgba(69,128,191,1) 100%);
+      background: -ms-linear-gradient(top, rgba(163,226,255,1) 0%, rgba(69,128,191,1) 100%);
+      background: linear-gradient(to bottom, rgba(163,226,255,1) 0%, rgba(69,128,191,1) 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a3e2ff', endColorstr='#4580bf', GradientType=0 );
     }
   }
 }

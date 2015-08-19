@@ -6,14 +6,27 @@ class Api::SitsController < ApplicationController
     render :index
   end
 
+  def show
+    @user = Sit.includes(:user).find(params[:id])
+    render :show
+  end
+
   def create
-    @sit = Sit.new(sit_params)
+    offset = Time.now.utc_offset
+    fixed_st = (sit_params[:start_time]).to_time
+    fixed_et = (sit_params[:end_time]).to_time
+    @sit = Sit.new(
+      start_time: fixed_st,
+      end_time: fixed_et,
+      is_sleep: sit_params[:is_sleep]
+    )
     @sit.user_id = current_user.id
     @sit.weight = current_user.weight
     @sit.actx = current_user.actx
-    
+    @sit.is_sleep ||= false
+
     if @sit.save
-      render :index
+      render :show
     else
       render json: @sit.errors.full_messages, status: :unprocessable_entity
     end

@@ -7,7 +7,6 @@ gem 'backbone-on-rails'
 gem 'bcrypt'
 
 gem 'bootstrap-sass'
-gem 'bootstrap-timepicker-rails'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'

@@ -15,7 +15,9 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
   render: function () {
     // Render navbar title:
     var pageTitle = this.model.escape('username');
-    if (this.model.isCurrentUser()) { pageTitle = 'My Dashboard'; }
+    if (this.model.isCurrentUser()) {
+      pageTitle = 'My Dashboard';
+    }
     $('.page-title').text(pageTitle);
 
     var contents = this.template({
@@ -33,9 +35,18 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
       user: this.model
     };
 
+    this.addSitForm();
     this.addCalsTileView(context);
     this.addIntsTileView(context);
     this.addStepsTileView(context);
+  },
+
+  renderTileGraphs: function () {
+    this.sitsToday = this.sits.sitsToday();
+
+    this.calsView.updateGraph(this.sitsToday);
+    this.intsView.updateGraph(this.sitsToday);
+    this.stepsView.updateGraph(this.sitsToday);
   },
 
   addCalsTileView: function (context) {
@@ -53,21 +64,24 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
     this.addSubview('.steps-tile', this.stepsView);
   },
 
-  renderTileGraphs: function () {
-    this.sitsToday = this.sits.sitsToday();
+  addSitForm: function () {
+    $('.users-tile').empty();
+    var formView = new Sitbit.Views.SitForm({
+      collection: this.sits
+    });
+    this.addSubview('.users-tile', formView);
+  },
 
-    this.calsView.updateGraph(this.sitsToday);
-    this.intsView.updateGraph(this.sitsToday);
-    this.stepsView.updateGraph(this.sitsToday);
+  addUserTools: function () {
+    var formView = new Sitbit.Views.UserTools({
+      user: this.model,
+      collection: this.sits
+    });
   }
+
   // addFriendsView: function () {
   //   var subview = new Sitbit.Views.FriendsTile({ collection: this.friends });
   //   this.addSubview('.steps-tile', subview);
   // },
   //
-  // addProfileToolsView: function () {
-  // pass in this.calsView
-  //   var subview = new Sitbit.Views.ProfileToolsTile({ collection: this.sits, calsView: this.calsView });
-  //   this.addSubview('.steps-tile', subview);
-  // }
 });
