@@ -3,9 +3,9 @@ Sitbit.Views.StepsTile = Backbone.View.extend ({
   className: 'steps-tile-content',
 
   initialize: function (options) {
-    // TODO: After adding sit, success callback to rerender graph only
     this.user = options.user;
-    this.listenTo(this.collection, 'sync add remove', this.vegaParse);
+    this.sitsToday = options.sitsToday;
+    this.listenTo(this.user, 'sync', this.vegaParse);
   },
 
   render: function () {
@@ -13,11 +13,17 @@ Sitbit.Views.StepsTile = Backbone.View.extend ({
     return this;
   },
 
+  updateGraph: function (sitData) {
+    this.sitsToday = sitData;
+    this.vegaParse();
+  },
+
+  // VEGA:
+
   vegaParse: function () {
     function parse(spec) {
       vg.parse.spec(spec, function(chart) { chart({el:"#vis-sgt"}).update(); });
     }
-
     var content = this.vegaJson();
     parse(content);
   },
@@ -30,18 +36,7 @@ Sitbit.Views.StepsTile = Backbone.View.extend ({
       "data": [
         {
           "name": "table",
-          "values": [
-            {"x": 1,  "y": 28}, {"x": 2,  "y": 55},
-            {"x": 3,  "y": 43}, {"x": 4,  "y": 91},
-            {"x": 5,  "y": 81}, {"x": 6,  "y": 53},
-            {"x": 7,  "y": 19}, {"x": 8,  "y": 87},
-            {"x": 9,  "y": 52}, {"x": 10, "y": 48},
-            {"x": 11, "y": 24}, {"x": 12, "y": 49},
-            {"x": 13, "y": 87}, {"x": 14, "y": 66},
-            {"x": 15, "y": 17}, {"x": 16, "y": 27},
-            {"x": 17, "y": 68}, {"x": 18, "y": 16},
-            {"x": 19, "y": 49}, {"x": 20, "y": 15}
-          ]
+          "values": this.parseStepsData()
         }
       ],
       "scales": [
@@ -86,12 +81,11 @@ Sitbit.Views.StepsTile = Backbone.View.extend ({
         }
       ]
     };
-
     return graphSpecs;
   },
 
   parseStepsData: function () {
-    var sitData = this.grabSitsToday();
+    var sitData = this.sitsToday;
     var cutoff = new Date(Date.now()).getHours();
     var user_rmr = this.user.escape('rmr');
     var output = new Array(24);
@@ -108,22 +102,5 @@ Sitbit.Views.StepsTile = Backbone.View.extend ({
     }.bind(output));
 
     return output;
-  },
-
-  grabSitsToday: function () {
-    var output = [];
-    var ndd = new Date(Date.now()).setHours(0,0,0,0);
-
-    this.collection.models.forEach(function (sit) {
-      var sdd = new Date(sit.attributes.start_time).setHours(0,0,0,0);
-      var edd = new Date(sit.attributes.end_time).setHours(0,0,0,0);
-
-      if ( sdd === ndd || edd === ndd ) {
-        output.push(sit.attributes.hourly_split);
-      }
-    });
-
-    return output;
   }
-  
 });

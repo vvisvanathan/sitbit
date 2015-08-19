@@ -1,6 +1,5 @@
 class Api::UsersController < ApplicationController
   def index
-    # TODO: Includes? no
     @users = User.all
     render :index
   end
@@ -10,7 +9,8 @@ class Api::UsersController < ApplicationController
     #   start_date:
     #   end_date:
     # }
-    # where("sits.start_time < ?"). 
+    # where("sits.start_time < ?").
+    # TODO: @sits = (eventually when doing d/w/m/y)
     @user = User.includes(:sits).find(params[:id])
     render :show
   end

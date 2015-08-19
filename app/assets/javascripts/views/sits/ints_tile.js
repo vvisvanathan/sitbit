@@ -2,27 +2,33 @@ Sitbit.Views.IntsTile = Backbone.View.extend ({
   template: JST['users/sits/intervals/intervals_tile'],
   className: 'intervals-tile-content',
 
-  initialize: function () {
-    this.listenTo(this.collection, 'add remove', this.render);
+  initialize: function (options) {
+    this.user = options.user;
+    this.sitsToday = options.sitsToday;
+    this.listenTo(this.user, 'sync', this.vegaParse);
   },
 
   render: function () {
     this.$el.html(this.template({ sits: this.collection }));
-    this.vegaParse();
     return this;
   },
 
-    vegaParse: function () {
+  updateGraph: function (sitData) {
+    this.sitsToday = sitData;
+    this.vegaParse();
+  },
+
+  // VEGA:
+
+  vegaParse: function () {
     function parse(spec) {
       vg.parse.spec(spec, function(chart) { chart({el:"#vis-igt"}).update(); });
     }
-
     var content = this.vegaJson();
-
     parse(content);
-    },
+  },
 
-    vegaJson: function () {
+  vegaJson: function () {
     var graphSpecs = {
       "width": $("#ints-tile").width() - 50,
       "height": $("#ints-tile").height() - 100,
@@ -82,7 +88,6 @@ Sitbit.Views.IntsTile = Backbone.View.extend ({
         }
       ]
     };
-
     return graphSpecs;
-    }
+  }
 });

@@ -3,7 +3,7 @@ Sitbit.Models.User = Backbone.Model.extend({
 
   parse: function (response) {
     if (response.sits) {
-      this.sits().set(response.sits, { parse: true });
+      this.sits().reset(response.sits, { parse: true });
       delete response.sits;
     }
 

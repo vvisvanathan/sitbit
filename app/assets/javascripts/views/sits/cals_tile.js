@@ -3,8 +3,8 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
   className: 'cals-tile-content',
 
   initialize: function (options) {
-    // TODO: After adding sit, success callback to rerender graph only
     this.user = options.user;
+    this.sitsToday = options.sitsToday;
     this.listenTo(this.user, 'sync', this.vegaParse);
   },
 
@@ -12,6 +12,13 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
     this.$el.html(this.template({ sits: this.collection }));
     return this;
   },
+
+  updateGraph: function (sitData) {
+    this.sitsToday = sitData;
+    this.vegaParse();
+  },
+
+  // VEGA:
 
   vegaParse: function () {
     function parse(spec) {
@@ -128,12 +135,11 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
         }
       ]
     };
-
     return graphSpecs;
   },
 
   parseCalsData: function () {
-    var sitData = this.grabSitsToday();
+    var sitData = this.sitsToday;
     var cutoff = new Date(Date.now()).getHours();
     var user_rmr = this.user.escape('rmr');
     var output = new Array(24);
@@ -163,22 +169,5 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
     }.bind(output));
 
     return output;
-  },
-
-  grabSitsToday: function () {
-    var output = [];
-    var ndd = new Date(Date.now()).setHours(0,0,0,0);
-
-    this.collection.models.forEach(function (sit) {
-      var sdd = new Date(sit.attributes.start_time).setHours(0,0,0,0);
-      var edd = new Date(sit.attributes.end_time).setHours(0,0,0,0);
-
-      if ( sdd === ndd || edd === ndd ) {
-        output.push(sit.attributes.hourly_split);
-      }
-    });
-
-    return output;
   }
-
 });
