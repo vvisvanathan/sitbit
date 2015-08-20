@@ -50,6 +50,12 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
           "domain": {"data": "table", "field": "x"}
         },
         {
+          "name": "t",
+          "type": "linear",
+          "range": "height",
+          "domain": {"data": "table", "field": "t"},
+        },
+        {
           "name": "y",
           "type": "linear",
           "range": "height",
@@ -145,11 +151,14 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
     var output = new Array(24);
 
     for (var i = 0; i < 24; i++) {
-      var bar = 0;
-      if (i <= cutoff) { bar = user_rmr; }
+      var lastBar = 0;
+      if (i > 0) { lastBar = output[i - 1].t; }
+      var bar = -user_rmr;
+      if (i > cutoff) { bar = 0; lastBar = 0; }
       output[i] = {
         "x": i,
-        "y": -bar,
+        "y": bar,
+        "t": lastBar + bar,
         "c": "lightgray",
         "hc": "lightblue"
       };

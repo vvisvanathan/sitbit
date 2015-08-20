@@ -3,9 +3,19 @@
 <form class="sit-form">
   <div class="form-group">
 
-    <input type="time" name="sit[start_time]" class="form-control" placeholder="Start Time">
+    <!-- start time -->
+    <input id="start-time"
+           type="datetime-local"
+           name="sit[start_time]"
+           class="form-control"
+           placeholder="mm/dd/yy, --:-- AM (Start Time)">
 
-    <input type="time" name="sit[end_time]" class="form-control" placeholder="End Time">
+    <!-- end time -->
+    <input id="end-time"
+           type="datetime-local"
+           name="sit[end_time]"
+           class="form-control"
+           placeholder="mm/dd/yy, --:-- AM (Start Time)">
 
     <div class="checkbox">
       <label>

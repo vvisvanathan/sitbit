@@ -12,7 +12,6 @@ class Api::SitsController < ApplicationController
   end
 
   def create
-    offset = Time.now.utc_offset
     fixed_st = (sit_params[:start_time]).to_time
     fixed_et = (sit_params[:end_time]).to_time
     @sit = Sit.new(

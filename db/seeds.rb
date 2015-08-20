@@ -19,8 +19,9 @@ User.create(username: 'JonnyIve', password: 123123, sex: 'm', age: 48, weight: 1
 User.create(username: 'Kobe8', password: 123123, sex: 'm', age: 36, weight: 205, height: 78, actx: 3, cals_in: 3800)
 User.create(username: 'RubyRon', password: 123123, sex: 'm', age: 28, weight: 150, height: 67, actx: 1, cals_in: 1500)
 User.create(username: 'JavaJohn', password: 123123, sex: 'm', age: 35, weight: 200, height: 68, actx: 1, cals_in: 2500)
-# User.create(username: 'HillaryC', password: 123123, sex: 'f', age: 67, weight: 145, height: 67, actx: 1, cals_in: 2000)
-# User.create(username: 'PeterD', password: 123123, sex: 'm', age: 46, weight: 250, height: 53, actx: 1, cals_in: 1700)
+User.create(username: 'HillaryC', password: 123123, sex: 'f', age: 67, weight: 145, height: 67, actx: 1, cals_in: 2000)
+User.create(username: 'PeterD', password: 123123, sex: 'm', age: 46, weight: 250, height: 53, actx: 1, cals_in: 1700)
+User.create(username: 'HisAirness', password: 123123, sex: 'm', age: 56, weight: 198, height: 78, actx: 2, cals_in: 2500)
 
 def seed_sits
   add_daytime_sits
