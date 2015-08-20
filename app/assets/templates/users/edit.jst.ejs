@@ -1,0 +1,109 @@
+<div class="usr-settings">
+  <div class="filter-div"></div>
+
+  <div class="auth-form-b">
+
+    <!-- form -->
+    <form role="form">
+      <!-- username -->
+      <div style="margin-bottom: 15px" class="input-group">
+        <h5 id="settings-header">User Settings</h5>
+      </div>
+
+<div style="border-top: 2px solid lightgray; padding-top:10px; font-size:85%" ></div>
+
+    <!-- detail row -->
+      <div class="det-row">
+        <!-- sex -->
+        <div class="btn-group signup-sex" data-toggle="buttons">
+          <% var mActive = ""; var mChecked = ""; var fActive = ""; var fChecked = ""; %>
+
+          <% if (user.escape('sex') === 'm') { mActive = "active"; mChecked = "checked"; } %>
+          <label class="radio-btn btn <%= mActive %> btn-default">
+              <input type="radio" id="sex" name="user[sex]" value="m" <%= mChecked %>> M
+          </label>
+
+          <% if (user.escape('sex') === 'f') { fActive = "active"; fChecked = "checked"; } %>
+          <label class="radio-btn btn <%= fActive %> btn-default">
+              <input type="radio" id="sex" name="user[sex]" value="f" <%= fChecked %>> F
+          </label>
+        </div>
+
+        <!-- activity level -->
+        <div class="btn-group signup-actx" data-toggle="buttons">
+          <% var oneActive = ""; var oneChecked = ""; var twoActive = ""; var twoChecked = ""; var threeActive = ""; var threeChecked = ""; %>
+
+          <% if (user.escape('actx') === '1') { oneActive = "active"; oneChecked = "checked"; } %>
+          <label class="radio-btn <%= oneActive %> btn btn-default">
+              <input type="radio" id="actx" name="user[actx]" value="1" <%= oneChecked %>> Relaxed
+          </label>
+
+          <% if (user.escape('actx') === '2') { twoActive = "active"; twoChecked = "checked"; } %>
+          <label class="radio-btn <%= twoActive %> btn btn-default">
+              <input type="radio" id="actx" name="user[actx]" value="2" <%= twoChecked %>> Active
+          </label>
+
+          <% if (user.escape('actx') === '3') { threeActive = "active"; threeChecked = "checked"; } %>
+          <label class="radio-btn <%= threeActive %> btn btn-default">
+              <input type="radio" id="actx" name="user[actx]" value="3" <%= threeChecked %>> Athlete
+          </label>
+        </div>
+      </div>
+
+      <!-- Descriptors -->
+      <div class="det-row">
+        <p class="signup-sex">Sex</p>
+        <p class="signup-actx">Activity Level</p>
+      </div>
+
+    <!-- detail row -->
+      <div class="det-row">
+        <!-- age -->
+        <div class="input-group signup-age">
+          <input id="signup-age" type="number" class="form-control" name="user[age]" placeholder="years" min = "18" max="100" value="<%= user.escape('age') %>">
+        </div>
+
+        <!-- height -->
+        <div class="input-group signup-height">
+          <input id="signup-height" type="number" class="form-control" name="user[height]" placeholder="inches" min = "48" max="84" value="<%= user.escape('height') %>">
+        </div>
+
+        <!-- weight -->
+        <div class="input-group signup-weight">
+          <input id="signup-weight" type="number" class="form-control" name="user[weight]" placeholder="lbs" min = "60" max="350" step="5" value="<%= user.escape('weight') %>">
+        </div>
+      </div>
+      <!-- Descriptors -->
+      <div class="det-row">
+        <p class="signup-age">Age</p>
+        <p class="signup-height">Height (inches)</p>
+        <p class="signup-weight">Weight (lbs)</p>
+      </div>
+
+      <div class="det-row">
+        <div class="input-group signup-cals">
+          <label class="signup-cals">
+          <input id="signup-cals" type="number" class="form-control" name="user[cals_in]" placeholder="calories" min = "0" max="10000" step="100" value="<%= user.escape('cals_in') %>">
+          <p class="signup-cals">Estimated Daily Calorie Intake</p></label>
+        </div>
+      </div>
+
+      <br><br>
+
+      <!-- calories_in -->
+      <!-- <div style="margin-bottom: 15px" class="input-group">
+        <input id="signup-cals-in" type="number" class="form-control" name="user[cals_in]" placeholder="2000" min = "0" max="10000">
+      </div> -->
+
+<div style="border-top: 2px solid lightgray; padding-top:10px; font-size:85%" ></div>
+
+      <!-- <button class="btn btn-success">Sign Up</button> -->
+      <div class="submit-btn-rw">
+        <input type="submit" value="   Save   " class="auth-btn"><br><br>
+      </div>
+
+      <ul class="settings-errors"></ul>
+
+    </form>
+  </div>
+</div>

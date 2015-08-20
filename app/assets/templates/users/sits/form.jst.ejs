@@ -1,21 +1,19 @@
-<h4>Log</h4>
+<h4>Log Sits</h4>
 
 <form class="sit-form">
   <div class="form-group">
 
-    <input type="time" name="sit[start_time]" class="form-control" placeholder="Start Time"><br>
+    <input type="time" name="sit[start_time]" class="form-control" placeholder="Start Time">
 
-    <input type="time" name="sit[end_time]" class="form-control" placeholder="End Time"><br>
+    <input type="time" name="sit[end_time]" class="form-control" placeholder="End Time">
 
     <div class="checkbox">
       <label>
         <input type="checkbox" name="sit[is_sleep]" value="true"> Sleep
       </label>
+      <input type="submit" class="btn btn-success sit-log" value="Log">
     </div>
-
   </div>
-
-    <input type="submit" class="btn btn-success" value="Add">
 
   <div class="sit-errors"></div>
 </form>

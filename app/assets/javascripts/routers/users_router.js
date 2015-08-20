@@ -9,7 +9,7 @@ Sitbit.Routers.UserRouter = Backbone.Router.extend({
     '' : 'userDash',
     'users' : 'userIndex',
     'users/:id' : 'userShow',
-    'users/:id/edit' : 'userEdit'
+    'settings' : 'userEdit'
   },
 
   userDash: function () {
@@ -40,15 +40,14 @@ Sitbit.Routers.UserRouter = Backbone.Router.extend({
     this._swapView(userShowView);
   },
 
-  userEdit: function (id) {
-    alert('Edit not yet implemented!');
-    // var user = this.users.getOrFetch(id);
-    // var userEditView = new Sitbit.Views.UserEdit({
-    //   model: user,
-    //   collection: this.users
-    // });
-    //
-    // this._swapView(userEditView);
+  userEdit: function () {
+    var user = this.users.getOrFetch(Sitbit.CURRENT_USER.id);
+    var userEditView = new Sitbit.Views.UserForm({
+      model: user,
+      collection: this.users
+    });
+
+    this._swapView(userEditView);
   },
 
   _swapView: function (newView) {

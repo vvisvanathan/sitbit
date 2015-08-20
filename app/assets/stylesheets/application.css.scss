@@ -150,20 +150,28 @@ body {
     width: 40%;
     display: inline-block;
     margin: 10px auto;
+    padding: 5% auto;
     background: transparent;
 
+    .tile {
+     h4 {
+       text-align: center;
+       font-weight: normal;
+       font-size: 18px;
+     }
+    }
     .users-tile {
       display: block;
       position: relative;
       top: 50%; bottom: 100%;
       z-index: -1;
       float: left;
-      height: 35%;
+      height: 200px;
       width: 60%;
       min-width: 300px;
-      min-height: 200px;
       margin: 5px;
       border-radius: 7px;
+      padding: 10px 20px 10px 20px;
 
       background: rgba(255,0,85,1);
       background: -moz-linear-gradient(top, rgba(255,0,85,1) 0%, rgba(161,0,27,1) 100%);
@@ -173,6 +181,14 @@ body {
       background: -ms-linear-gradient(top, rgba(255,0,85,1) 0%, rgba(161,0,27,1) 100%);
       background: linear-gradient(to bottom, rgba(255,0,85,1) 0%, rgba(161,0,27,1) 100%);
       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff0055', endColorstr='#a1001b', GradientType=0 );
+
+      .sit-errors {
+        font-size: 12px;
+        font-weight: light;
+        display: block;
+        text-align: center;
+        padding: 10px 0px;
+      }
     }
 
     .friends-tile {
@@ -201,6 +217,28 @@ body {
 
 #navbar div .user-searcher {
   min-height: 25px;
+}
+
+.sit-log {
+  display: inline-block;
+  float: right;
+  padding: 6px 40px;
+
+  background: #39d15a;
+  background-image: -webkit-linear-gradient(top, #39d15a, #32b350);
+  background-image: -moz-linear-gradient(top, #39d15a, #32b350);
+  background-image: -ms-linear-gradient(top, #39d15a, #32b350);
+  background-image: -o-linear-gradient(top, #39d15a, #32b350);
+  background-image: linear-gradient(to bottom, #39d15a, #32b350);
+}
+
+.sit-log:hover {
+  background: #39d15a;
+  background-image: -webkit-linear-gradient(top, #39d15a, #2DA148);
+  background-image: -moz-linear-gradient(top, #39d15a, #2DA148);
+  background-image: -ms-linear-gradient(top, #39d15a, #2DA148);
+  background-image: -o-linear-gradient(top, #39d15a, #2DA148);
+  background-image: linear-gradient(to bottom, #39d15a, #2DA148);
 }
 
 .filter-div {
@@ -241,6 +279,13 @@ body {
   height: 100%;
   width: 100%;
   background: #1D1D1D url(http://www.chictip.com/wp-content/uploads/2011/04/Living-Room_8x10-version_JPEG.jpg) no-repeat center center;
+}
+
+.user-settings {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: transparent;
 }
 
 .auth-form {

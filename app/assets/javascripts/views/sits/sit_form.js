@@ -23,6 +23,7 @@ Sitbit.Views.SitForm = Backbone.View.extend({
 
     var success = function () {
       this.collection.add(this.model);
+      $('.sit-errors').empty();
       Backbone.history.navigate('');
     }.bind(this);
 
