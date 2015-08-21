@@ -27,7 +27,7 @@ User.create(username: 'HisAirness', password: 123123, sex: 'm', age: 56, weight:
 user_ids = User.pluck(:id)
 user_ids.each do |uid|
   user_ids.sample(rand(5..10)).each do |fid|
-    Follow.create(user_id: uid, follow_id: fid) unless uid == fid
+    Follow.create(follower_id: uid, followed_id: fid) unless uid == fid
   end
 end
 
@@ -56,7 +56,7 @@ def fill_days_with_sits(user_id, user_weight, user_actx, date)
 
   while sit_end <= s_cap
     sit_start = sit_end + rand(secondize(0.5)..secondize(1.5))
-    sit_end = sit_start + rand(secondize(0.5)..secondize(2.0))
+    sit_end = sit_start + rand(secondize(0.5)..secondize(3.0))
 
     if sit_start < s_cap && sit_end < s_cap
       Sit.create(user_id: user_id,
@@ -77,7 +77,7 @@ def add_sits_for_today(user_id, user_weight, user_actx)
 
   while sit_end <= s_cap
     sit_start = sit_end + rand(secondize(0.5)..secondize(1.5))
-    sit_end = sit_start + rand(secondize(0.5)..secondize(2.0))
+    sit_end = sit_start + rand(secondize(0.5)..secondize(3.0))
 
     if sit_start < s_cap && sit_end < s_cap
       Sit.create(user_id: user_id,

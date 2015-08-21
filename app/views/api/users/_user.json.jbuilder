@@ -10,11 +10,19 @@ json.extract! user,
               :rmr,
               :walk_stats
 
+
+if show_following
+  json.followings do
+    json.array! user.following do |follow|
+      json.extract! follow, :id,
+                            :username
+    end
+  end
+end
+
 if show_sits
   json.sits do
-    # TODO: fix this
     json.array! user.sits do |sit|
-      # TODO: add sit_time_today, calories_burned, etc.
       json.extract! sit, :id,
                          :start_time,
                          :end_time,

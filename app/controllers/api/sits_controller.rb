@@ -7,7 +7,7 @@ class Api::SitsController < ApplicationController
   end
 
   def show
-    @user = Sit.includes(:user).find(params[:id])
+    @sit = Sit.includes(:user).find(params[:id])
     render :show
   end
 
@@ -26,15 +26,6 @@ class Api::SitsController < ApplicationController
 
     if @sit.save
       render :show
-    else
-      render json: @sit.errors.full_messages, status: :unprocessable_entity
-    end
-  end
-
-  def update
-    @sit = Sit.find(params[:id])
-    if @sit.update(sit_params)
-      render :index
     else
       render json: @sit.errors.full_messages, status: :unprocessable_entity
     end

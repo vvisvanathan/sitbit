@@ -4,6 +4,7 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
 
   initialize: function (options) {
     this.user = options.user;
+    this.currentNetCals = 0;
     this.sitsToday = options.sitsToday;
     this.listenTo(this.user, 'sync', this.vegaParse);
   },
@@ -176,7 +177,7 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
             },
             "update": {
               "fill": {"data": "table", "field": "c"},
-              "fillOpacity": {"value": 0.75}
+              "fillOpacity": {"value": 0.7}
             },
             "hover": {
               "fill": {"data": "table", "field": "hc"},
@@ -243,6 +244,7 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
       if ( integral[z].t < minDomain) { minDomain = (Math.round(integral[z].t/100)*100 - 100); }
     }
 
+    this.currentNetCals = integral[cutoff].t;
     this.graphDomain = [minDomain, maxDomain];
     return [output, integral];
   }
