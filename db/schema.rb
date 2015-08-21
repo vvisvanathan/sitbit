@@ -17,14 +17,15 @@ ActiveRecord::Schema.define(version: 20150820030157) do
   enable_extension "plpgsql"
 
   create_table "follows", force: :cascade do |t|
-    t.integer  "follow_id",  null: false
-    t.integer  "user_id",    null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "follower_id", null: false
+    t.integer  "followed_id", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  add_index "follows", ["follow_id"], name: "index_follows_on_follow_id", using: :btree
-  add_index "follows", ["user_id"], name: "index_follows_on_user_id", using: :btree
+  add_index "follows", ["followed_id"], name: "index_follows_on_followed_id", using: :btree
+  add_index "follows", ["follower_id", "followed_id"], name: "index_follows_on_follower_id_and_followed_id", unique: true, using: :btree
+  add_index "follows", ["follower_id"], name: "index_follows_on_follower_id", using: :btree
 
   create_table "sits", force: :cascade do |t|
     t.integer  "user_id",                    null: false

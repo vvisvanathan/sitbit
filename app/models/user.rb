@@ -26,7 +26,11 @@ class User < ActiveRecord::Base
   after_initialize :ensure_session_token, :ensure_cals_in
   attr_reader :password
 
-  has_many :sits
+  has_many :sits, dependent: :destroy
+  has_many :follows, class_name: 'Follow',
+                     foreign_key: 'follower_id',
+                     dependent: :destroy
+  has_many :following, through: :follows, source: :followed
 
   def walk_stats
     pace = 3.1 * (self.height/70.0)
