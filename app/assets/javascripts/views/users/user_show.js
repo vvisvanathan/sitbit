@@ -83,11 +83,7 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
     });
   },
 
-  addFollowingsView: function () {
-    var subview = new Sitbit.Views.UserFollows({
-      collection: this.followings
-    });
-    this.addSubview('.follows-tile', subview);
+  addLeaderBoard: function () {
   }
 
 });
