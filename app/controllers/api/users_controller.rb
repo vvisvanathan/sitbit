@@ -10,7 +10,7 @@ class Api::UsersController < ApplicationController
     #   end_date:
     # }
     # where("sits.start_time < ?").
-    # TODO: @sits = (eventually when doing d/w/m/y)
+    # @sits = (eventually when doing d/w/m/y)
 
     @user = User.includes(:sits).includes(:following).find(params[:id])
     render :show

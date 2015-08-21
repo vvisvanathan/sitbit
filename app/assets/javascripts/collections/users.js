@@ -18,20 +18,5 @@ Sitbit.Collections.Users = Backbone.Collection.extend({
     }
 
     return userMaybe;
-  },
-
-  // TODO: might not need this... but just in case:
-  getOrFetchSit: function (userId, sitId) {
-    var userMaybe = this.get(userId);
-    var list;
-    if (userMaybe) {
-      list = userMaybe.lists().getOrFetch(sitId);
-    } else {
-      list = new Sitbit.Models.Sit( { id: sitId });
-      list.fetch();
-    }
-
-    return list;
   }
-
 });

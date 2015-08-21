@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 DATA_CUTOFF = 1.week.ago
-TIME_NOW = Time.now
+TIME_NOW = Time.now.in_time_zone("Pacific Time (US & Canada)")
 
 User.create(username: 'bob', password: 123123, sex: 'm', age: 35, weight: 160, height: 71, actx: 2, cals_in: 2000)
 User.create(username: 'Guest', password: 123123, sex: 'm', age: 35, weight: 160, height: 71, actx: 2, cals_in: 2000)

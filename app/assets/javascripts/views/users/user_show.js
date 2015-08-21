@@ -2,13 +2,15 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
   template: JST['users/show'],
   className: 'dashboard',
 
-  initialize: function () {
-    this.followings = this.model.followings();
 
+  initialize: function () {
     this.sits = this.model.sits();
     this.sitsToday = this.sits.sitsToday();
 
+    this.followings = this.model.followings();
+
     this.listenTo(this.model, 'sync', this.render);
+    // TODO: MAYBE add one more listener that updates the data based on interval required
     this.listenTo(this.model, 'sync', this.renderTileGraphs);
     this.addTileSubviews();
     this.listenTo(this.sits, 'add remove', this.renderTileGraphs);
@@ -74,18 +76,18 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
     this.addSubview('.users-tile', formView);
   },
 
-  // addUserTools: function () {
-  //   var formView = new Sitbit.Views.UserTools({
-  //     user: this.model,
-  //     collection: this.sits
-  //   });
-  // }
-  //
-  // addFriendsView: function () {
-  //   var subview = new Sitbit.Views.FriendsTile({
-  //     collection: this.friends
-  //   });
-  //   this.addSubview('.steps-tile', subview);
-  // }
+  addUserTools: function () {
+    var formView = new Sitbit.Views.UserTools({
+      user: this.model,
+      collection: this.sits
+    });
+  },
+
+  addFollowingsView: function () {
+    var subview = new Sitbit.Views.UserFollows({
+      collection: this.followings
+    });
+    this.addSubview('.follows-tile', subview);
+  }
 
 });
