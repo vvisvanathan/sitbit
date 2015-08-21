@@ -219,7 +219,7 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
         var isToday = (hourly.date.day === new Date(Date.now()).getDate());
         var isHappened = (hourly.h_end <= cutoff);
         if (isToday && isHappened) {
-          var idx = parseInt(hourly.h_start - 0.1);
+          var idx = parseInt(hourly.h_start);
           var frac = hourly.h_end - hourly.h_start;
           output[idx].y += hourly.scr * frac;
 
