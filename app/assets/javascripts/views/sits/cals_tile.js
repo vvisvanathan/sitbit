@@ -4,7 +4,6 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
 
   initialize: function (options) {
     this.user = options.user;
-    this.currentNetCals = 0;
     this.sitsToday = options.sitsToday;
     this.listenTo(this.user, 'sync', this.vegaParse);
   },
@@ -218,7 +217,7 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
     sitData.forEach(function (sitdatum) {
       sitdatum.forEach(function (hourly) {
         var isToday = (hourly.date.day === new Date(Date.now()).getDate());
-        var isHappened = true;
+        var isHappened = (hourly.h_end <= cutoff);
         if (isToday && isHappened) {
           var idx = parseInt(hourly.h_start - 0.1);
           var frac = hourly.h_end - hourly.h_start;
@@ -246,7 +245,6 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
       if ( integral[z].t < minDomain) { minDomain = (Math.round(integral[z].t/100)*100 - 100); }
     }
 
-    this.currentNetCals = integral[cutoff].t;
     this.graphDomain = [minDomain, maxDomain];
     return [output, integral];
   }
