@@ -2,6 +2,10 @@ class SessionsController < ApplicationController
   def new
   end
 
+  def show
+    redirect_to new_session_url
+  end
+
   def create
     u = User.find_by_credentials(
       params[:user][:username],

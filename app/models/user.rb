@@ -14,6 +14,9 @@
 #  age             :integer          not null
 #  actx            :integer          default(2), not null
 #  cals_in         :integer          default(2000)
+#  fname           :string
+#  lname           :string
+#  total_sit_time  :float
 #
 
 class User < ActiveRecord::Base
@@ -23,7 +26,7 @@ class User < ActiveRecord::Base
   validates :password_digest, :session_token, :age, :weight, :height, :cals_in, presence: true
   validates :sex, presence: true, inclusion: {:in => ['m', 'f', 'o']}
   validates :actx, presence: true, inclusion: {:in => [1, 2, 3, 4]}
-  after_initialize :ensure_session_token, :ensure_cals_in
+  after_initialize :ensure_session_token, :ensure_user_stats
   attr_reader :password
 
   has_many :sits, dependent: :destroy
@@ -85,7 +88,8 @@ class User < ActiveRecord::Base
     self.session_token ||= SecureRandom.urlsafe_base64(16)
   end
 
-  def ensure_cals_in
+  def ensure_user_stats
     self.cals_in ||= 1200 + (self.actx * 400)
+    self.total_sit_time ||= 0.0
   end
 end

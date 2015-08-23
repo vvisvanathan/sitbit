@@ -9,19 +9,19 @@
 DATA_CUTOFF = 1.week.ago
 TIME_NOW = Time.now.localtime
 
-User.create(username: 'bob', password: 123123, sex: 'm', age: 35, weight: 160, height: 71, actx: 2, cals_in: 2000)
-User.create(username: 'Guest', password: 123123, sex: 'm', age: 35, weight: 160, height: 71, actx: 2, cals_in: 2000)
-User.create(username: 'RondaRousey', password: 123123, sex: 'f', age: 28, weight: 135, height: 67, actx: 3, cals_in: 3000)
-User.create(username: 'KanyeWest', password: 123123, sex: 'm', age: 38, weight: 168, height: 68, actx: 2, cals_in: 2300)
-User.create(username: 'Rihanna', password: 123123, sex: 'f', age: 27, weight: 124, height: 68, actx: 2, cals_in: 1700)
-User.create(username: 'LeBronJames', password: 123123, sex: 'm', age: 28, weight: 250, height: 80, actx: 3, cals_in: 5000)
-User.create(username: 'JonnyIve', password: 123123, sex: 'm', age: 48, weight: 180, height: 65, actx: 1, cals_in: 3000)
-User.create(username: 'Kobe8', password: 123123, sex: 'm', age: 36, weight: 205, height: 78, actx: 3, cals_in: 3800)
-User.create(username: 'RubyRon', password: 123123, sex: 'm', age: 28, weight: 150, height: 67, actx: 1, cals_in: 1500)
-User.create(username: 'JavaJohn', password: 123123, sex: 'm', age: 35, weight: 200, height: 68, actx: 1, cals_in: 2500)
-User.create(username: 'HillaryC', password: 123123, sex: 'f', age: 67, weight: 145, height: 67, actx: 1, cals_in: 2000)
-User.create(username: 'PeterD', password: 123123, sex: 'm', age: 46, weight: 250, height: 53, actx: 1, cals_in: 1700)
-User.create(username: 'HisAirness', password: 123123, sex: 'm', age: 56, weight: 198, height: 78, actx: 2, cals_in: 2500)
+User.create(username: 'bob', fname: "Bob", lname: "Bobson", password: 123123, sex: 'm', age: 35, weight: 160, height: 71, actx: 2, cals_in: 2000)
+User.create(username: 'Guest', fname: "Guest", password: 123123, sex: 'm', age: 35, weight: 160, height: 71, actx: 2, cals_in: 2000)
+User.create(username: 'RondaRousey', fname: "Ronda", lname: "Rousey", password: 123123, sex: 'f', age: 28, weight: 135, height: 67, actx: 3, cals_in: 3000)
+User.create(username: 'KanyeWest', fname: "Kanye", lname: "West", password: 123123, sex: 'm', age: 38, weight: 168, height: 68, actx: 2, cals_in: 2300)
+User.create(username: 'Rihanna', fname: "Robyn", lname: "Rihanna", password: 123123, sex: 'f', age: 27, weight: 124, height: 68, actx: 2, cals_in: 1700)
+User.create(username: 'KingJames', fname: "LeBron", lname: "James", password: 123123, sex: 'm', age: 28, weight: 250, height: 80, actx: 3, cals_in: 5000)
+User.create(username: 'JonnyIve', fname: "Jonny", lname: "Ive", password: 123123, sex: 'm', age: 48, weight: 180, height: 65, actx: 1, cals_in: 3000)
+User.create(username: 'Kobe8', fname: "Kobe", lname: "Bryant", password: 123123, sex: 'm', age: 36, weight: 205, height: 78, actx: 3, cals_in: 3800)
+User.create(username: 'RubyRon', fname: "Ron", lname: "Ruby", password: 123123, sex: 'm', age: 28, weight: 150, height: 67, actx: 1, cals_in: 1500)
+User.create(username: 'JavaJohn', fname: "John", lname: "Java", password: 123123, sex: 'm', age: 35, weight: 200, height: 68, actx: 1, cals_in: 2500)
+User.create(username: 'HillaryC', fname: "Hillary", lname: "Clinton", password: 123123, sex: 'f', age: 67, weight: 145, height: 67, actx: 1, cals_in: 2000)
+User.create(username: 'PeterD', fname: "Peter", lname: "Dinklage", password: 123123, sex: 'm', age: 46, weight: 250, height: 53, actx: 1, cals_in: 1700)
+User.create(username: 'HisAirness', fname: "Michael", lname: "Jordan", password: 123123, sex: 'm', age: 56, weight: 198, height: 78, actx: 2, cals_in: 2500)
 
 
 user_ids = User.pluck(:id)
@@ -59,13 +59,18 @@ def fill_days_with_sits(user_id, user_weight, user_actx, date)
     sit_end = sit_start + rand(secondize(0.5)..secondize(3.0))
 
     if sit_start < s_cap && sit_end < s_cap
-      Sit.create(user_id: user_id,
-                 start_time: sit_start,
-                 end_time: sit_end,
-                 is_sleep: false,
-                 weight: user_weight,
-                 actx: user_actx
-                 )
+      sit = Sit.new(user_id: user_id,
+                    start_time: sit_start,
+                    end_time: sit_end,
+                    is_sleep: false,
+                    weight: user_weight,
+                    actx: user_actx
+                    )
+      if sit.save
+        user = sit.user
+        new_total_st = user.total_sit_time + sit.interval
+        user.update({ total_sit_time: new_total_st })
+      end
     end
   end
 end
@@ -80,13 +85,18 @@ def add_sits_for_today(user_id, user_weight, user_actx)
     sit_end = sit_start + rand(secondize(0.5)..secondize(3.0))
 
     if sit_start < s_cap && sit_end < s_cap
-      Sit.create(user_id: user_id,
-                 start_time: sit_start,
-                 end_time: sit_end,
-                 is_sleep: false,
-                 weight: user_weight,
-                 actx: user_actx
-                 )
+      sit = Sit.new(user_id: user_id,
+                    start_time: sit_start,
+                    end_time: sit_end,
+                    is_sleep: false,
+                    weight: user_weight,
+                    actx: user_actx
+                    )
+      if sit.save
+        user = sit.user
+        new_total_st = user.total_sit_time + sit.interval
+        user.update({ total_sit_time: new_total_st })
+      end
     end
   end
 end
@@ -99,13 +109,18 @@ def add_sleep
       sleep_start, sleep_end = random_sleep_interval(d_day)
       d_day += 1
 
-      Sit.create(user_id: user_id,
-                 start_time: sleep_start,
-                 end_time: sleep_end,
-                 is_sleep: true,
-                 weight: user_weight,
-                 actx: user_actx
-                 )
+      sit = Sit.new(user_id: user_id,
+                    start_time: sleep_start,
+                    end_time: sleep_end,
+                    is_sleep: true,
+                    weight: user_weight,
+                    actx: user_actx
+                    )
+      if sit.save
+        user = sit.user
+        new_total_st = user.total_sit_time + sit.interval
+        user.update({ total_sit_time: new_total_st })
+      end
     end
   end
 end

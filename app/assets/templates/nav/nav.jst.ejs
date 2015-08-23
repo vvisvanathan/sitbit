@@ -19,27 +19,22 @@
     <ul class="nav navbar-nav">
 
       <li class="dropdown">
-        <!-- TODO: notification badge -->
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-          <%= Sitbit.CURRENT_USER.username %> <span id="tweets-count" class="badge">3</span> <span class="caret"></span>
+          <%= Sitbit.CURRENT_USER.username %> <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-          <!-- TODO: notifications -->
-          <li><a href="#">Notifications</a></li>
-          <li role="separator" class="divider"></li>
           <li><a href="#settings">Settings</a></li>
           <li role="separator" class="divider"></li>
           <li><a data-method="delete" href="/session">Sign Out</a></li>
         </ul>
       </li>
-
-      <li><a href="#users">User Index</a></li>
     </ul>
 
     <ul class="nav navbar-nav navbar-right">
       <form  class="navbar-form navbar-left" role="search">
         <div class="form-group user-searcher">
-          <input type="search" class="form-control" placeholder="User Search">
+          <input type="search" name="query" class="form-control searchbar" value="" placeholder="User Search" autocomplete="off">
+          <ul class="search-results"></ul>
         </div>
       </form>
     </ul>

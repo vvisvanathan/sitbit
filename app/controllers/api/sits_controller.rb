@@ -25,6 +25,9 @@ class Api::SitsController < ApplicationController
     @sit.is_sleep ||= false
 
     if @sit.save
+      @user = @sit.user
+      new_total_st = @user.total_sit_time + @sit.interval
+      @user.update({ total_sit_time: new_total_st })
       render :show
     else
       render json: @sit.errors.full_messages, status: :unprocessable_entity

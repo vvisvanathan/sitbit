@@ -14,6 +14,9 @@
 #  age             :integer          not null
 #  actx            :integer          default(2), not null
 #  cals_in         :integer          default(2000)
+#  fname           :string
+#  lname           :string
+#  total_sit_time  :float
 #
 
 require 'test_helper'

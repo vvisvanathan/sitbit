@@ -81,9 +81,6 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
       user: this.model,
       collection: this.sits
     });
-  },
-
-  addLeaderBoard: function () {
   }
 
 });

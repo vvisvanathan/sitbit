@@ -1,6 +1,8 @@
 json.extract! user,
               :id,
               :username,
+              :fname,
+              :lname,
               :sex,
               :age,
               :weight,
@@ -8,14 +10,16 @@ json.extract! user,
               :actx,
               :cals_in,
               :rmr,
-              :walk_stats
+              :total_sit_time
 
 
 if show_following
   json.followings do
     json.array! user.following do |follow|
       json.extract! follow, :id,
-                            :username
+                            :username,
+                            :fname,
+                            :lname
     end
   end
 end

@@ -1,6 +1,12 @@
 class Api::UsersController < ApplicationController
   def index
-    @users = User.all
+    if params[:query].present?
+      query = params[:query].downcase
+      @users = User
+        .where("lower(username) ~ ? OR lower(lname) ~ ? OR lower(fname) ~ ?", query, query, query)
+    else
+      @users = User.all
+    end
     render :index
   end
 
