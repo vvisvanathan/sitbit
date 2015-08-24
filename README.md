@@ -15,14 +15,13 @@ Sitbit is a clone of the fitbit dashboard built on Rails and Backbone. Users can
 - [x] Create accounts
 - [x] Create sessions (log in)
 - [ ] Track and view their 'Sit Time'
-- [ ] Track and view their 'Calories Rescued'
-- [ ] Track and view their 'Inactivity Level'
-- [ ] View a dashboard that summarizes their statistics
-- [ ] Interact with dashboard to modify timelines or see details
-- [ ] Add and follow friends
-- [ ] View a leaderboard
-- [ ] Search for friends by username
-- [ ] Log in as guest user
+- [x] Track and view their 'Calories Rescued'
+- [x] Track and view their 'Steps Avoided'
+- [x] View a dashboard that summarizes their statistics
+- [x] Interact with dashboard to modify timelines or see details
+- [x] View a leaderboard
+- [x] Search for other users and view their profiles
+- [x] Log in as guest user
 
 ## Design Docs
 * [View Wireframes][views]
@@ -73,11 +72,9 @@ to a different page.
 
 [Details][phase-four]
 
-### Phase 5: User Search, Friends, Notifications, and Leaderboard(~2 days)
+### Phase 5: User Search and Leaderboard(~2 days)
 Add the ability for users to:
 - Search for other users in a search bar on the dashboard
-- follow/unfollow friends within the search results
-- see notifications for friend requests
 - view a leaderboard of their friends on their dashboards.
 
 Add `search` routes to the users controller. On the Backbone side,
@@ -98,14 +95,12 @@ order of priority specified below.
 [Details][phase-six]
 
 ### Bonus Features (TBD)
-- [ ] Users can customize their dashboard and account settings
-- [ ] Users can track and view their 'Calories Gloriously Consumed'
-- [ ] Users can track and view their 'Net Calories'
+- [x] Users can customize account settings
+- [x] Users can track and view their 'Net Calories'
 - [ ] Users can set and view a custom 'Target Weight'
 - [ ] Users can track and view their 'Current Weight'
 - [ ] Website tour (Shepherd)
 - [ ] Multiple sessions/session management
-- [ ] Build and implement my own charting library
 
 [phase-one]: ./docs/phases/phase1.md
 [phase-two]: ./docs/phases/phase2.md

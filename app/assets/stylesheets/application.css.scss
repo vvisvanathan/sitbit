@@ -106,7 +106,7 @@ body {
     top: 0; bottom: 0;
     width: 60%;
     display: inline-block;
-    margin: 10px auto;
+    margin: 10px 0 10px 30px;
     padding: 5% auto;
     background: transparent;
 
@@ -129,6 +129,21 @@ body {
       }
     }
 
+    .controls-tile {
+      display: block;
+      position: relative;
+      top: 0; bottom: 0;
+      z-index: -1;
+      float: right;
+      height: 40px;
+      width: 95%;
+      min-width: 350px;
+      max-width: 710px;
+      color: gray;
+      margin: 5px;
+      border-radius: 7px;
+    }
+
     .calories-tile {
       padding-right: 40px;
 
@@ -137,48 +152,60 @@ body {
       top: 0; bottom: 0;
       z-index: -1;
       float: right;
-      height: 55%;
+      height: 45%;
       width: 95%;
-      min-width: 350px;
+      min-width: 355px;
       min-height: 300px;
       max-width: 710px;
-      // background: white;
       color: gray;
       margin: 5px;
       border-radius: 7px;
     }
 
+    .small-graphs {
+      display: block;
+      position: relative;
+      top: 0; bottom: 0;
+      z-index: -1;
+      float: right;
+      height: 45%;
+      width: 95%;
+      min-width: 355px;
+      min-height: 300px;
+      max-width: 710px;
+      color: gray;
+      background: #1D1D1D;
+      padding: 0;
+      margin: 0 5px 0 0
+    }
+
     .intervals-tile {
       display: inline-block;
       position: relative;
-      top: 50%; bottom: 100%;
+      top: 5px;
       z-index: -1;
-      float: right;
-      height: 40%;
-      width: 47.5%;
-      min-width: 200px;
-      min-height: 200px;
+      float: left;
+      height: 100%;
+      width: 49%;
+      min-width: 170px;
       max-width: 350px;
-      // background: white;
       color: gray;
-      margin: 5px;
+      margin: 0 5px 0 0;
       border-radius: 7px;
     }
 
     .steps-tile {
       display: inline-block;
       position: relative;
-      top: 50%; bottom: 100%;
+      top: 5px;
       z-index: -1;
       float: right;
-      height: 40%;
-      width: 47.5%;
-      min-width: 200px;
-      min-height: 200px;
+      height: 100%;
+      width: 49%;
+      min-width: 170px;
       max-width: 350px;
-      // background: white;
       color: gray;
-      margin: 5px;
+      margin: 0 0 0 5px;
       border-radius: 7px;
     }
   }
@@ -189,8 +216,8 @@ body {
     top: 0; bottom: 0; left: 60%;
     width: 40%;
     display: inline-block;
-    margin: 10px auto;
-    padding: 5% auto;
+    margin: 10px 0 10px 30px;
+    padding: 5% auto 5% auto;
     background: transparent;
 
     .tile {
