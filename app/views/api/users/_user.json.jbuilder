@@ -12,18 +12,6 @@ json.extract! user,
               :rmr,
               :daily_avg
 
-
-if show_following
-  json.followings do
-    json.array! user.following do |follow|
-      json.extract! follow, :id,
-                            :username,
-                            :fname,
-                            :lname
-    end
-  end
-end
-
 if show_sits
   json.sits do
     json.array! user.sits do |sit|

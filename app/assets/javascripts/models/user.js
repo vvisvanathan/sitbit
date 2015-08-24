@@ -7,11 +7,6 @@ Sitbit.Models.User = Backbone.Model.extend({
       delete response.sits;
     }
 
-    if (response.followings) {
-      this.followings().reset(response.followings, { parse: true });
-      delete response.followings;
-    }
-
     return response;
   },
 
@@ -21,14 +16,6 @@ Sitbit.Models.User = Backbone.Model.extend({
     }
 
     return this._sits;
-  },
-
-  followings: function () {
-    if (!this._followings) {
-      this._followings = new Sitbit.Collections.Follows([], { user: this });
-    }
-
-    return this._followings;
   },
 
   isCurrentUser: function () {

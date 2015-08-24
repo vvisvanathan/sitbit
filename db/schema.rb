@@ -16,17 +16,6 @@ ActiveRecord::Schema.define(version: 20150823200734) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "follows", force: :cascade do |t|
-    t.integer  "follower_id", null: false
-    t.integer  "followed_id", null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "follows", ["followed_id"], name: "index_follows_on_followed_id", using: :btree
-  add_index "follows", ["follower_id", "followed_id"], name: "index_follows_on_follower_id_and_followed_id", unique: true, using: :btree
-  add_index "follows", ["follower_id"], name: "index_follows_on_follower_id", using: :btree
-
   create_table "sits", force: :cascade do |t|
     t.integer  "user_id",                    null: false
     t.datetime "start_time",                 null: false

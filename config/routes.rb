@@ -8,6 +8,5 @@ Rails.application.routes.draw do
 
     resources :users, only: [:index, :show, :update]
     resources :sits, only: [:index, :show, :create, :destroy]
-    resources :follows, only: [:index, :show, :create, :destroy]
   end
 end

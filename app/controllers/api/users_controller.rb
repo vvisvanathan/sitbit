@@ -18,7 +18,7 @@ class Api::UsersController < ApplicationController
     # where("sits.start_time < ?").
     # @sits = (eventually when doing d/w/m/y)
 
-    @user = User.includes(:sits).includes(:following).find(params[:id])
+    @user = User.includes(:sits).find(params[:id])
     render :show
   end
 

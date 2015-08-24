@@ -24,13 +24,6 @@ User.create(username: 'PeterD', fname: "Peter", lname: "Dinklage", password: 123
 User.create(username: 'HisAirness', fname: "Michael", lname: "Jordan", password: 123123, sex: 'm', age: 56, weight: 198, height: 78, actx: 2, cals_in: 2500)
 
 
-user_ids = User.pluck(:id)
-user_ids.each do |uid|
-  user_ids.sample(rand(5..10)).each do |fid|
-    Follow.create(follower_id: uid, followed_id: fid) unless uid == fid
-  end
-end
-
 def seed_sits
   add_daytime_sits
   add_sleep
