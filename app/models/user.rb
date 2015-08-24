@@ -60,6 +60,11 @@ class User < ActiveRecord::Base
     return (burn_rate * normalizer) - (self.cals_in / 24)
   end
 
+  def daily_avg
+    lifetime = (Time.now.localtime - self.sits.first.start_time) / (3600 * 24)
+    return (self.total_sit_time / lifetime).round(2)
+  end
+
   # authentication:
 
   def self.find_by_credentials(username, password)

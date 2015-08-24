@@ -10,7 +10,7 @@ json.extract! user,
               :actx,
               :cals_in,
               :rmr,
-              :total_sit_time
+              :daily_avg
 
 
 if show_following

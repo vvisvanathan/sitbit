@@ -13,6 +13,7 @@ Sitbit.Routers.UserRouter = Backbone.Router.extend({
   },
 
   userDash: function () {
+    this.users.fetch();
     var user = this.users.getOrFetch(Sitbit.CURRENT_USER.id);
     var userShowView = new Sitbit.Views.UserShow({
       model: user,
@@ -31,6 +32,7 @@ Sitbit.Routers.UserRouter = Backbone.Router.extend({
   },
 
   userShow: function (id) {
+    this.users.fetch();
     var user = this.users.getOrFetch(id);
     var userShowView = new Sitbit.Views.UserShow({
       model: user,

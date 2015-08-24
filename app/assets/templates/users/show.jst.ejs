@@ -13,8 +13,44 @@
 
 <div class="sidebar-tiles">
   <div id="users-tile" class="tile users-tile">
+
+    <div class="user-info">
+
+      <h3><%= user.escape('fname') %> <%= user.escape('lname') %></h3>
+      <h4><%= user.escape('username') %></h4>
+
+      <ul>
+        <li><%= user.escape('age') %> years old</li>
+        <li><%= user.escape('sex') === 'm' ? 'Male' : 'Female' %></li>
+        <li>Height: <%= parseInt(user.escape('height') / 12) %>' <%= user.escape('height') % 12 %>"</li>
+        <li>Weight: <%= user.escape('weight') %> lbs.</li>
+        <li>Sits ~<%= parseFloat(user.escape('daily_avg')).toFixed(1) %> hours daily</li>
+      </ul>
+
+    </div>
+
   </div>
 
-  <div id="friends-tile" class="tile friends-tile">
+  <div id="leader-tile" class="tile leader-tile">
+
+    <div class="leaderboard">
+      <h4>Top Squatters</h4>
+
+      <ul>
+        <% for (i = 0; i <= 8; i++) { %>
+
+            <% if (users.models[i] && (users.models[i].escape('id') != Sitbit.CURRENT_USER.id)) { %>
+              <a href="#users/<%= users.models[i].escape('id') %>">
+                <li>
+                  <div class='leader-name'><%= users.models[i].escape('username') %></div>
+                  <div class='score'><strong><%= users.models[i].escape('daily_avg') %></strong> hrs/day</div>
+                </li>
+              </a>
+            <% } %>
+
+        <% } %>
+      </ul>
+    </div>
+
   </div>
 </div>

@@ -24,18 +24,26 @@
       </div>
 
       <input type="submit" value="Log In" class="auth-btn login"><br><br>
-
-      <div class="form-group">
-        <div class="col-md-12 control">
-          <div style="border-top: 2px solid lightgray; padding-top:10px; color: gray; text-align: center; font-size:90%" >
-            New user?
-          <a href="/users/new">
-            Sign up!
-          </a>
-          </div>
-        </div>
-      </div>
-
     </form>
+
+    <div class="form-group guest-login">
+      <div class="col-md-12 control" style="border-top: 2px solid lightgray; padding-top:10px; color: gray; text-align: center; font-size:90%"=>
+        <form action="/session" method="post" class="form-horizontal" role="form">
+          <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+          <input type="hidden" name="user[username]" value="Guest">
+          <input type="hidden" name="user[password]" value="123123">
+          <input type="submit" value="Log In As Guest" class="auth-btn login"><br><br>
+        </form>
+      </div>
+    </div>
+
+    <div class="form-group else-message">
+      <div class="col-md-12 control" style="border-top: 2px solid lightgray; padding-top:10px; color: gray; text-align: center; font-size:90%" >
+          New user?
+        <a href="/users/new">
+          Sign up!
+        </a>
+      </div>
+    </div>
   </div>
 </div>

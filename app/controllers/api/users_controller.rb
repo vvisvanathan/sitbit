@@ -5,7 +5,7 @@ class Api::UsersController < ApplicationController
       @users = User
         .where("lower(username) ~ ? OR lower(lname) ~ ? OR lower(fname) ~ ?", query, query, query)
     else
-      @users = User.all
+      @users = (User.all.sort_by { |user| user.total_sit_time}).reverse
     end
     render :index
   end

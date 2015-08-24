@@ -132,7 +132,7 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
                 "g": {"value": 220},
                 "b": {"value": 220}
               },
-              "fillOpacity": {"value": 0.65}
+              "fillOpacity": {"value": 0.75}
             },
             "hover": {
               "fill": {
@@ -140,7 +140,7 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
                 "g": {"value": 190},
                 "b": {"value": 190}
               },
-              "fillOpacity": {"value": 0.9}
+              "fillOpacity": {"value": 0.95}
             }
           }
         },
