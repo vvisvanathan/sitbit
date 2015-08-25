@@ -79,7 +79,7 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
 
     if (this.model.isCurrentUser()) { this.addSitForm(); }
     this.addCalsTileView(context);
-    this.addIntsTileView(context);
+    // this.addIntsTileView(context);
     this.addStepsTileView(context);
   },
 
@@ -87,7 +87,7 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
     this.sitsToday = this.sits.sitsToday(this.viewDate);
 
     this.calsView.updateGraph(this.sitsToday);
-    this.intsView.updateGraph(this.sitsToday);
+    // this.intsView.updateGraph(this.sitsToday);
     this.stepsView.updateGraph(this.sitsToday);
   },
 

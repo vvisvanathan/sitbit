@@ -66,6 +66,7 @@ body {
     width: 200px;
     list-style-type: none;
     margin: 0;
+    right: 5px;
     padding: 0;
 
     li {
@@ -215,7 +216,7 @@ body {
       border-radius: 7px;
     }
 
-    .small-graphs {
+    .steps-tile {
       display: block;
       position: relative;
       top: 0; bottom: 0;
@@ -227,38 +228,7 @@ body {
       min-height: 300px;
       max-width: 710px;
       color: gray;
-      background: #1D1D1D;
-      padding: 0;
-      margin: 0 5px 0 0
-    }
-
-    .intervals-tile {
-      display: inline-block;
-      position: relative;
-      top: 5px;
-      z-index: -1;
-      float: left;
-      height: 100%;
-      width: 49%;
-      min-width: 170px;
-      max-width: 350px;
-      color: gray;
-      margin: 0 5px 0 0;
-      border-radius: 7px;
-    }
-
-    .steps-tile {
-      display: inline-block;
-      position: relative;
-      top: 5px;
-      z-index: -1;
-      float: right;
-      height: 100%;
-      width: 49%;
-      min-width: 170px;
-      max-width: 350px;
-      color: gray;
-      margin: 0 0 0 5px;
+      margin: 5px;
       border-radius: 7px;
     }
   }
@@ -349,7 +319,7 @@ body {
       top: 50%; bottom: 100%;
       z-index: -1;
       float: left;
-      height: 410px;
+      height: 425px;
       width: 60%;
       min-width: 300px;
       margin: 5px;
@@ -511,9 +481,9 @@ body {
 .auth-form {
   display:block;
   position: absolute;
-  margin: 150px auto;
+  margin: 160px auto;
   top: 0; bottom: 0; left: 0; right: 0;
-  height: 420px;
+  height: 370px;
   width: 360px;
   padding: 20px 25px 25px 25px;
   border-radius: 15px;
