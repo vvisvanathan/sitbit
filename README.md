@@ -18,9 +18,15 @@ see instant visual feedback.
 
 ## Guide
 
-1. Guest users can log in through the provided Guest Log In.
-2. Users can add new 'sits' manually by using the 'Log' form (top right corner)
-3. Users will see instant feedback on the graph for the day logged
+1. Guest users can log in through the provided Guest Log In, or create a new
+   account! It's easy and doesn't require an email.
+2. Users can log new 'sits' manually by using the 'Log' form (top right corner)
+3. Users will see instant feedback on the graph for the day logged. Graph key:
+   - Red Zone: represents current time period (hourly)
+   - Blue Zones: represent sleep periods
+   - Green Zones: represent sitting periods
+   - Invidual data points are shown foremost on the graph
+   - Aggregate/Net (integral) data is shown in the back of the graph
 4. Toggle through various days of data using the date bar
 5. View log data by accessing 'Logs' through the user menu.
 6. Search for other users, or navigate through the leaderboard, to explore
@@ -156,6 +162,8 @@ order of priority specified below.
 - [ ] Improved CSS styling and graph animations
 - [ ] Website tour (Shepherd)
 - [ ] Multiple sessions/session management
+- [ ] Build an actual sitbit wristband tracker so you don't have to log data
+      manually
 
 [phase-one]: ./docs/phases/phase1.md
 [phase-two]: ./docs/phases/phase2.md
