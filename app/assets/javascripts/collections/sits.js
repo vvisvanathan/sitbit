@@ -4,7 +4,8 @@ Sitbit.Collections.Sits = Backbone.Collection.extend({
 
   sitsToday: function() {
     this._sitsToday = [];
-    var ndd = new Date(Date.now()).setHours(0,0,0,0);
+    var ndd = new Date().setHours(0,0,0,0);
+    $('.controls-date').text(new Date().toDateString());
 
     this.each(function (sit) {
       var sdd = new Date(sit.get('start_time')).setHours(0,0,0,0);

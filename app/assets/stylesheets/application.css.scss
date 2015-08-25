@@ -95,6 +95,7 @@ body {
 
 #content {
   width: 100%;
+  min-width: 900px;
   position: absolute;
   z-index: -50;
   top: 50px; bottom: 0;
@@ -142,6 +143,46 @@ body {
       color: gray;
       margin: 5px;
       border-radius: 7px;
+
+      .date-toggle-left {
+        display: inline-block;
+        float: left;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 5%;
+        padding: 10px 0 0 10px;
+      }
+
+      .date-toggle-right {
+        display: inline-block;
+        float: right;
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+        width: 5%;
+        padding: 10px 10px 0 10px;
+      }
+
+      .controls-header {
+        display: inline-block;
+        position: absolute;
+        width: 90%;
+        margin: 0 auto;
+        height: 30px;
+        text-align: center;
+
+        #help-icon {
+          display: inline-block;
+          position: absolute;
+          top: 3px;
+          left: 5%;
+          height: 100%;
+          width: 10px;
+        }
+      }
     }
 
     .calories-tile {
@@ -296,7 +337,7 @@ body {
       top: 50%; bottom: 100%;
       z-index: -1;
       float: left;
-      height: 435px;
+      height: 410px;
       width: 60%;
       min-width: 300px;
       margin: 5px;
