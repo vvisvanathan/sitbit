@@ -173,7 +173,7 @@ body {
         right: 0;
         height: 100%;
         width: 5%;
-        padding: 10px 10px 0 10px;
+        padding: 10px 10px 0 5px;
 
         a {
           color: #1D1D1D;
@@ -183,7 +183,7 @@ body {
       .controls-header {
         display: inline-block;
         position: absolute;
-        width: 95%;
+        width: 93%;
         margin: 0 auto;
         height: 30px;
         text-align: center;
@@ -196,6 +196,12 @@ body {
           height: 100%;
           width: 10px;
           color: gray;
+        }
+
+        .controls-date-link {
+          color: gray;
+          font-weight: bold;
+          text-decoration: none;
         }
       }
     }
@@ -429,6 +435,28 @@ body {
   background-image: -ms-linear-gradient(top, #39d15a, #2DA148);
   background-image: -o-linear-gradient(top, #39d15a, #2DA148);
   background-image: linear-gradient(to bottom, #39d15a, #2DA148);
+}
+
+.sit-log-table {
+  padding: 20px;
+  color: lightgray;
+  font-size: 13px;
+
+  table, th, td {
+    border: 1px solid gray;
+    border-collapse: collapse;
+    text-align: center;
+  }
+
+  th, td {
+    padding: 2px 5px 2px 5px;
+  }
+
+  button {
+    background: maroon;
+    border: 0px solid transparent;
+    border-radius: 3px;
+  }
 }
 
 .filter-div {

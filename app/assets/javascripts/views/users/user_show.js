@@ -5,7 +5,8 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
 
   events: {
     'click .date-toggle-left' : 'dateToggleLeft',
-    'click .date-toggle-right' : 'dateToggleRight'
+    'click .date-toggle-right' : 'dateToggleRight',
+    'click .controls-date-link' : 'dateReset'
   },
 
   dateToggleLeft: function (event) {
@@ -33,6 +34,15 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
     } else {
       $('.controls-date').text(this.viewDate.toDateString());
     }
+
+    this.sitsToday = this.sits.sitsToday(this.viewDate);
+    this.renderTileGraphs();
+  },
+
+  dateReset: function (event) {
+    event.preventDefault();
+    this.viewDate.setDate(new Date().getDate());
+    $('.controls-date').text('Today');
 
     this.sitsToday = this.sits.sitsToday(this.viewDate);
     this.renderTileGraphs();

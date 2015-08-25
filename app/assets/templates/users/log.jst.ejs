@@ -1,11 +1,21 @@
-<h5>Sit Logs</h5>
+<div class="sit-log-table">
+  <table style="width:100%">
+    <tr>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Duration (hrs)</th>
+      <th>Sleep?</th>
+      <th>Delete Entry</th>
+    </tr>
 
-<ul class="sit-log-table">
-  <% sits.models.forEach(function (sit) { %>
-    <li class="sit-log-entry">
-      <%= new Date(sit.escape('start_time')).toString() %>,
-      <%= new Date(sit.escape('end_time')).toString() %>,
-      <button type="button" name="button">Delete</button>
-    </li>
-  <%  }) %>
-</ul>
+    <% sits.models.forEach(function (sit) { %>
+      <tr class="sit-log-entry">
+        <td><%= new Date(sit.escape('start_time')).toString() %></td>
+        <td><%= new Date(sit.escape('end_time')).toString() %></td>
+        <td><%= parseFloat(sit.escape('interval')).toFixed(2) %></td>
+        <td><%= sit.escape('is_sleep') === 'true' ? "sleep" : "not sleep" %></td>
+        <td><button class="delete-sit" data-id="<%= sit.escape('id') %>" type="button" name="button">Delete</button></td>
+      </tr>
+    <%  }) %>
+  </table>
+</div>

@@ -14,7 +14,7 @@ json.extract! user,
 
 if show_sits
   json.sits do
-    json.array! user.sits do |sit|
+    json.array! user.sits.sort_by {|sit| sit.start_time}.reverse do |sit|
       json.extract! sit, :id,
                          :start_time,
                          :end_time,
