@@ -4,7 +4,8 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
 
   initialize: function (options) {
     this.user = options.user;
-    this.sitsToday = options.sitsToday;
+    this.sitsToday = options.userShow.sitsToday;
+    this.viewDate = options.userShow.viewDate;
     this.listenTo(this.user, 'sync', this.vegaParse);
   },
 
@@ -30,7 +31,12 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
   },
 
   vegaJson: function () {
-    var hourNow = (new Date(Date.now())).getHours();
+    this.hourNow = (new Date(Date.now())).getHours();
+    if (new Date(this.viewDate).setHours(0,0,0,0) === new Date().setHours(0,0,0,0)) {
+      var hourHeight = $("#cals-tile").height() - 75;
+    } else {
+      var hourHeight = 0;
+    }
     var data = this.parseCalsDiffs();
 
     var graphSpecs = {
@@ -149,10 +155,10 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
           "from": {"data": "table"},
           "properties": {
             "enter": {
-              "x": {"scale": "x", "value": hourNow},
+              "x": {"scale": "x", "value": this.hourNow},
               "width": {"scale": "x", "band": true, "offset": -1},
               "y": {"value": 0},
-              "y2": {"value": $("#cals-tile").height() - 75}
+              "y2": {"value": hourHeight}
             },
             "update": {
               "fillOpacity": {"value": 0.01},
@@ -191,9 +197,12 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
 
   parseCalsDiffs: function () {
     var sitData = this.sitsToday;
-    var cutoff = new Date(Date.now()).getHours();
-    var output = new Array(24);
-    var integral = new Array(cutoff);
+    var cutoff = 23;
+    if (new Date(this.viewDate).setHours(0,0,0,0) === new Date().setHours(0,0,0,0)) {
+      cutoff = (new Date(Date.now())).getHours();
+    }
+    this.output = new Array(24);
+    var integral = new Array(cutoff + 1);
     var user_rmr = this.user.escape('rmr');
     var minDomain = -200;
     var maxDomain = 200;
@@ -201,7 +210,7 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
     for (var i = 0; i < 24; i++) {
       var bar = -user_rmr;
       if (i > cutoff) { bar = 0; }
-      output[i] = {
+      this.output[i] = {
         "x": i,
         "y": bar,
         "t": 0,
@@ -216,29 +225,29 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
 
     sitData.forEach(function (sitdatum) {
       sitdatum.forEach(function (hourly) {
-        var isToday = (hourly.date.day === new Date(Date.now()).getDate());
+        var isToday = (hourly.date.day === new Date(this.viewDate).getDate());
         var isHappened = (hourly.h_end <= cutoff);
         if (isToday && isHappened) {
           var idx = parseInt(hourly.h_start);
           var frac = hourly.h_end - hourly.h_start;
-          output[idx].y += hourly.scr * frac;
+          this.output[idx].y += hourly.scr * frac;
 
           // Ugly conditionals for color assignment:
-          if (output[idx].y > 0) { output[idx].hc = "lightgreen"; }
+          if (this.output[idx].y > 0) { this.output[idx].hc = "lightgreen"; }
           if (hourly.is_sleep) {
-            output[idx].c = "black";
-            output[idx].zc = "steelblue";
+            this.output[idx].c = "black";
+            this.output[idx].zc = "steelblue";
           } else {
-            output[idx].c = "gray";
-            output[idx].zc = "green";
+            this.output[idx].c = "gray";
+            this.output[idx].zc = "green";
           }
         }
-      }.bind(output));
-    }.bind(output));
+      }.bind(this));
+    }.bind(this));
 
     var lastBar = 0;
     for (var z = 0; z <= cutoff; z++) {
-      if (z > 0) { lastBar += output[z - 1].y; }
+      if (z > 0) { lastBar += this.output[z - 1].y; }
       integral[z] = { "x": z, "t": lastBar };
 
       if ( integral[z].t > maxDomain) { maxDomain = (Math.round(integral[z].t/100)*100 + 100); }
@@ -246,6 +255,6 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
     }
 
     this.graphDomain = [minDomain, maxDomain];
-    return [output, integral];
+    return [this.output, integral];
   }
 });

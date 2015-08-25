@@ -3,10 +3,46 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
   userTemplate: JST['users/info'],
   className: 'dashboard',
 
+  events: {
+    'click .date-toggle-left' : 'dateToggleLeft',
+    'click .date-toggle-right' : 'dateToggleRight'
+  },
 
-  initialize: function () {
+  dateToggleLeft: function (event) {
+    event.preventDefault();
+    this.viewDate.setDate(this.viewDate.getDate() - 1);
+    var tdate = new Date(this.viewDate);
+
+    if (tdate.setHours(0,0,0,0) === new Date().setHours(0,0,0,0)) {
+      $('.controls-date').text('Today');
+    } else {
+      $('.controls-date').text(this.viewDate.toDateString());
+    }
+
+    this.sitsToday = this.sits.sitsToday(this.viewDate);
+    this.renderTileGraphs();
+  },
+
+  dateToggleRight: function (event) {
+    event.preventDefault();
+    this.viewDate.setDate(this.viewDate.getDate() + 1);
+    var tdate = new Date(this.viewDate);
+
+    if (tdate.setHours(0,0,0,0) === new Date().setHours(0,0,0,0)) {
+      $('.controls-date').text('Today');
+    } else {
+      $('.controls-date').text(this.viewDate.toDateString());
+    }
+
+    this.sitsToday = this.sits.sitsToday(this.viewDate);
+    this.renderTileGraphs();
+  },
+
+  initialize: function (options) {
+    this.collection.fetch();
+    this.viewDate = options.viewDate;
     this.sits = this.model.sits();
-    this.sitsToday = this.sits.sitsToday();
+    this.sitsToday = this.sits.sitsToday(this.viewDate);
 
     this.listenTo(this.model, 'sync', this.render);
     // TODO: MAYBE add one more listener that updates the data based on interval required
@@ -16,6 +52,7 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
   },
 
   render: function () {
+
     // Render navbar title:
     var pageTitle = this.model.escape('username');
     if (this.model.isCurrentUser()) {
@@ -36,7 +73,8 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
   addTileSubviews: function () {
     var context = {
       sitsToday: this.sitsToday,
-      user: this.model
+      user: this.model,
+      userShow: this
     };
 
     if (this.model.isCurrentUser()) { this.addSitForm(); }
@@ -46,7 +84,7 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
   },
 
   renderTileGraphs: function () {
-    this.sitsToday = this.sits.sitsToday();
+    this.sitsToday = this.sits.sitsToday(this.viewDate);
 
     this.calsView.updateGraph(this.sitsToday);
     this.intsView.updateGraph(this.sitsToday);

@@ -1,1 +1,11 @@
-<h5>Logs</h5>
+<h5>Sit Logs</h5>
+
+<ul class="sit-log-table">
+  <% sits.models.forEach(function (sit) { %>
+    <li class="sit-log-entry">
+      <%= new Date(sit.escape('start_time')).toString() %>,
+      <%= new Date(sit.escape('end_time')).toString() %>,
+      <button type="button" name="button">Delete</button>
+    </li>
+  <%  }) %>
+</ul>
