@@ -22,11 +22,12 @@ see instant visual feedback.
    account! It's easy and doesn't require an email.
 2. Users can log new 'sits' manually by using the 'Log' form (top right corner)
 3. Users will see instant feedback on the graph for the day logged. Graph key:
-   - Red Zone: represents current time period (hourly)
-   - Blue Zones: represent sleep periods
-   - Green Zones: represent sitting periods
-   - Invidual data points are shown foremost on the graph
-   - Aggregate/Net (integral) data is shown in the back of the graph
+   - Red area: represents current time period (hourly)
+   - Blue areas: represent sleep periods
+   - Green areas: represent sitting periods
+   - Individual data points are shown foremost on the graph
+   - Aggregate/Net (integral) data is depicted as an area or line graph in the
+     background of the graph
 4. Toggle through various days of data using the date bar
 5. View log data by accessing 'Logs' through the user menu.
 6. Search for other users, or navigate through the leaderboard, to explore
