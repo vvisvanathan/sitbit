@@ -32,10 +32,9 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
 
   vegaJson: function () {
     this.hourNow = (new Date(Date.now())).getHours();
+    var hourHeight = 0;
     if (new Date(this.viewDate).setHours(0,0,0,0) === new Date().setHours(0,0,0,0)) {
-      var hourHeight = $("#cals-tile").height() - 75;
-    } else {
-      var hourHeight = 0;
+      hourHeight = $("#cals-tile").height() - 75;
     }
     var data = this.parseCalsDiffs();
 
@@ -128,7 +127,7 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
           "properties": {
             "enter": {
               "interpolate": {"value": "basis"},
-              "x": {"scale": "x", "field": "x"},
+              "x": {"scale": "x", "field": "x", "offset": (0.019 * $('body').width())},
               "y": {"scale": "y", "field": "t"},
               "y2": {"scale": "y", "value": 0}
             },
@@ -245,7 +244,7 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
       }.bind(this));
     }.bind(this));
 
-    var lastBar = 0;
+    var lastBar = this.output[0].y;
     for (var z = 0; z <= cutoff; z++) {
       if (z > 0) { lastBar += this.output[z - 1].y; }
       integral[z] = { "x": z, "t": lastBar };
