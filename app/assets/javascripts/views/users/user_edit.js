@@ -21,7 +21,7 @@ Sitbit.Views.UserForm = Backbone.View.extend({
 
     var success = function () {
       this.collection.add(this.model);
-      Backbone.history.navigate('', { trigger:true });
+      window.history.back();
     }.bind(this);
 
     var errors = function (model, response) {

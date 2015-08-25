@@ -5,6 +5,7 @@ Sitbit.Views.StepsTile = Backbone.View.extend ({
   initialize: function (options) {
     this.user = options.user;
     this.sitsToday = options.sitsToday;
+    this.viewDate = options.userShow.viewDate;
     this.listenTo(this.user, 'sync', this.vegaParse);
   },
 
@@ -29,6 +30,13 @@ Sitbit.Views.StepsTile = Backbone.View.extend ({
   },
 
   vegaJson: function () {
+    this.hourNow = (new Date(Date.now())).getHours();
+    var hourHeight = 0;
+    if (new Date(this.viewDate).setHours(0,0,0,0) === new Date().setHours(0,0,0,0)) {
+      hourHeight = $("#cals-tile").height() - 75;
+    }
+    var data = this.parseStepsData();
+
     var graphSpecs = {
       "width": $("#steps-tile").width() - 50,
       "height": $("#steps-tile").height() - 100,

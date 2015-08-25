@@ -25,7 +25,6 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
     function parse(spec) {
       vg.parse.spec(spec, function(chart) { chart({el:"#vis-cgt"}).update(); });
     }
-
     var content = this.vegaJson();
     parse(content);
   },
