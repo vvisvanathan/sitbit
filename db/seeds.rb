@@ -19,9 +19,9 @@ User.create(username: 'JonnyIve', fname: "Jonny", lname: "Ive", password: 123123
 User.create(username: 'Kobe8', fname: "Kobe", lname: "Bryant", password: 123123, sex: 'm', age: 36, weight: 205, height: 78, actx: 3, cals_in: 3800)
 User.create(username: 'RubyRon', fname: "Ron", lname: "Ruby", password: 123123, sex: 'm', age: 28, weight: 150, height: 67, actx: 1, cals_in: 1500)
 User.create(username: 'JavaJohn', fname: "John", lname: "Java", password: 123123, sex: 'm', age: 35, weight: 200, height: 68, actx: 1, cals_in: 2500)
-User.create(username: 'HillaryC', fname: "Hillary", lname: "Clinton", password: 123123, sex: 'f', age: 67, weight: 145, height: 67, actx: 1, cals_in: 2000)
 User.create(username: 'PeterD', fname: "Peter", lname: "Dinklage", password: 123123, sex: 'm', age: 46, weight: 250, height: 53, actx: 1, cals_in: 1700)
 User.create(username: 'HisAirness', fname: "Michael", lname: "Jordan", password: 123123, sex: 'm', age: 56, weight: 198, height: 78, actx: 2, cals_in: 2500)
+User.create(username: 'TSwift', fname: "Taylor", lname: "Swift", password: 123123, sex: 'f', age: 28, weight: 150, height: 69, actx: 2, cals_in: 2000)
 
 
 def seed_sits
