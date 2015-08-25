@@ -55,7 +55,6 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
     this.sitsToday = this.sits.sitsToday(this.viewDate);
 
     this.listenTo(this.model, 'sync', this.render);
-    // TODO: MAYBE add one more listener that updates the data based on interval required
     this.listenTo(this.model, 'sync', this.renderTileGraphs);
     this.addTileSubviews();
     this.listenTo(this.sits, 'add remove', this.renderTileGraphs);

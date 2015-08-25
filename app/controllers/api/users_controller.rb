@@ -11,13 +11,6 @@ class Api::UsersController < ApplicationController
   end
 
   def show
-    # TODO: params: {
-    #   start_date:
-    #   end_date:
-    # }
-    # where("sits.start_time < ?").
-    # @sits = (eventually when doing d/w/m/y)
-
     @user = User.includes(:sits).find(params[:id])
     render :show
   end
