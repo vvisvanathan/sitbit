@@ -14,7 +14,8 @@ Sitbit.Views.StepsTile = Backbone.View.extend ({
     return this;
   },
 
-  updateGraph: function (sitData) {
+  updateGraph: function (viewDate, sitData) {
+    this.viewDate = viewDate;
     this.sitsToday = sitData;
     this.vegaParse();
   },
@@ -33,14 +34,13 @@ Sitbit.Views.StepsTile = Backbone.View.extend ({
     this.hourNow = (new Date(Date.now())).getHours();
     var hourHeight = 0;
     if (new Date(this.viewDate).setHours(0,0,0,0) === new Date().setHours(0,0,0,0)) {
-      hourHeight = $("#cals-tile").height() - 75;
+      hourHeight = $("#steps-tile").height() - 75;
     }
     var data = this.parseCalsDiffs();
 
     var graphSpecs = {
-      "width": $("#cals-tile").width() - 60,
-      "height": $("#cals-tile").height() - 75,
-      // "padding": {"top": 30, "left": 30, "bottom": 30, "right": 30},
+      "width": $("#steps-tile").width() - 60,
+      "height": $("#steps-tile").height() - 75,
       "data": [
         {
           "name": "table",
@@ -149,7 +149,7 @@ Sitbit.Views.StepsTile = Backbone.View.extend ({
               "x": {"scale": "x", "field": "x"},
               "y": {"scale": "y", "field": "y"},
               "y2": {"scale": "y", "value": 0},
-              "fill": {"value": "darkblue"}
+              "fill": {"value": "#007DE5"}
             },
             "update": {
               "fillOpacity": {"value": 0.5}

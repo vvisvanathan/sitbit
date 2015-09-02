@@ -1,17 +1,17 @@
 <div class="graph-tiles">
 
   <div id="controls-tile" class="tile controls-tile">
-    <div class="date-toggle-left">
-      <a href="#"><i class="glyphicon glyphicon-chevron-left"></i></a>
-    </div>
+    <a href="#"><div class="date-toggle-left">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+    </div></a>
 
     <div class="controls-header">
       <a href="#" class="controls-date-link"><p class="controls-date"></p></a>
     </div>
 
-    <div class="date-toggle-right">
-      <a href="#"><i class="glyphicon glyphicon-chevron-right"></i></a>
-    </div>
+    <a href="#"><div class="date-toggle-right">
+      <i class="glyphicon glyphicon-chevron-right"></i>
+    </div></a>
   </div>
 
   <div id="cals-tile" class="tile calories-tile">
@@ -24,28 +24,34 @@
 
 <div class="sidebar-tiles">
   <div id="users-tile" class="tile users-tile">
-
-    <div class="user-info">
-
+    <div class="user-header">
       <h3><%= user.escape('fname') %> <%= user.escape('lname') %></h3>
       <h4><%= user.escape('username') %></h4>
+    </div>
+
+    <div class="user-info">
 
       <ul>
         <li><%= user.escape('age') %> years old</li>
         <li><%= user.escape('sex') === 'm' ? 'Male' : 'Female' %></li>
-        <li>Height: <%= parseInt(user.escape('height') / 12) %>' <%= user.escape('height') % 12 %>"</li>
-        <li>Weight: <%= user.escape('weight') %> lbs.</li>
+        <li><%= parseInt(user.escape('height') / 12) %>' <%= user.escape('height') % 12 %>"</li>
+        <li><%= user.escape('weight') %> lbs.</li>
         <li>Sits ~<%= parseFloat(user.escape('daily_avg')).toFixed(1) %> hours daily</li>
       </ul>
 
     </div>
+  </div>
+
+  <div id="form-tile" class="form-tile">
 
   </div>
 
   <div id="leader-tile" class="tile leader-tile">
 
     <div class="leaderboard">
-      <h4>Top Squatters</h4>
+      <div class="leaderboard-header">
+        <h4>Top Squatters</h4>
+      </div>
 
       <ul>
         <% for (i = 0; i <= 8; i++) { %>

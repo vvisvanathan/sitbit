@@ -9,7 +9,7 @@
     </button>
 
     <!-- logo -->
-    <a class="navbar-brand" href="#"><img src="http://i.imgur.com/VFAETFs.png" class='navbar-logo-img'/></a>
+    <a class="navbar-brand" href="#"><img src="/images/sitbit-logo.png" class='navbar-logo-img'/></a>
     <p class="navbar-brand page-title" href="#"></p>
   </div>
 
@@ -21,15 +21,14 @@
           <%= Sitbit.CURRENT_USER.username %> <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-          <li><a href="#log">Logs</a></li>
-
-          <li role="separator" class="divider"></li>
           <li><a href="#settings">Settings</a></li>
 
           <li role="separator" class="divider"></li>
           <li><a data-method="delete" href="/session">Sign Out</a></li>
         </ul>
       </li>
+
+      <li><a href="#log">Logs</a></li>
     </ul>
 
     <ul class="nav navbar-nav navbar-right">

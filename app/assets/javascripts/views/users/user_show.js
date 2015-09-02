@@ -9,45 +9,6 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
     'click .controls-date-link' : 'dateReset'
   },
 
-  dateToggleLeft: function (event) {
-    event.preventDefault();
-    this.viewDate.setDate(this.viewDate.getDate() - 1);
-    var tdate = new Date(this.viewDate);
-
-    if (tdate.setHours(0,0,0,0) === new Date().setHours(0,0,0,0)) {
-      $('.controls-date').text('Today');
-    } else {
-      $('.controls-date').text(this.viewDate.toDateString());
-    }
-
-    this.sitsToday = this.sits.sitsToday(this.viewDate);
-    this.renderTileGraphs();
-  },
-
-  dateToggleRight: function (event) {
-    event.preventDefault();
-    this.viewDate.setDate(this.viewDate.getDate() + 1);
-    var tdate = new Date(this.viewDate);
-
-    if (tdate.setHours(0,0,0,0) === new Date().setHours(0,0,0,0)) {
-      $('.controls-date').text('Today');
-    } else {
-      $('.controls-date').text(this.viewDate.toDateString());
-    }
-
-    this.sitsToday = this.sits.sitsToday(this.viewDate);
-    this.renderTileGraphs();
-  },
-
-  dateReset: function (event) {
-    event.preventDefault();
-    this.viewDate.setDate(new Date().getDate());
-    $('.controls-date').text('Today');
-
-    this.sitsToday = this.sits.sitsToday(this.viewDate);
-    this.renderTileGraphs();
-  },
-
   initialize: function (options) {
     this.collection.fetch();
     this.viewDate = options.viewDate;
@@ -88,16 +49,16 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
 
     if (this.model.isCurrentUser()) { this.addSitForm(); }
     this.addCalsTileView(context);
-    // this.addIntsTileView(context);
     this.addStepsTileView(context);
+    // this.addIntsTileView(context);
   },
 
   renderTileGraphs: function () {
     this.sitsToday = this.sits.sitsToday(this.viewDate);
 
-    this.calsView.updateGraph(this.sitsToday);
-    // this.intsView.updateGraph(this.sitsToday);
-    this.stepsView.updateGraph(this.sitsToday);
+    this.calsView.updateGraph(this.viewDate, this.sitsToday);
+    this.stepsView.updateGraph(this.viewDate, this.sitsToday);
+    // this.intsView.updateGraph(this.viewDate, this.sitsToday);
   },
 
   addCalsTileView: function (context) {
@@ -120,7 +81,43 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
     var formView = new Sitbit.Views.SitForm({
       collection: this.sits
     });
-    this.addSubview('.users-tile', formView);
+    this.addSubview('.form-tile', formView);
+  },
+
+  dateToggleLeft: function (event) {
+    event.preventDefault();
+    this.viewDate.setDate(this.viewDate.getDate() - 1);
+    var tdate = new Date(this.viewDate);
+
+    if (tdate.setHours(0,0,0,0) === new Date().setHours(0,0,0,0)) {
+      $('.controls-date').text('Today');
+    } else {
+      $('.controls-date').text(this.viewDate.toDateString());
+    }
+
+    this.renderTileGraphs();
+  },
+
+  dateToggleRight: function (event) {
+    event.preventDefault();
+    this.viewDate.setDate(this.viewDate.getDate() + 1);
+    var tdate = new Date(this.viewDate);
+
+    if (tdate.setHours(0,0,0,0) === new Date().setHours(0,0,0,0)) {
+      $('.controls-date').text('Today');
+    } else {
+      $('.controls-date').text(this.viewDate.toDateString());
+    }
+
+    this.renderTileGraphs();
+  },
+
+  dateReset: function (event) {
+    event.preventDefault();
+    this.viewDate = new Date();
+
+    this.renderTileGraphs();
+    $('.controls-date').text('Today');
   }
 
 });

@@ -16,7 +16,7 @@
 class Sit < ActiveRecord::Base
   validates :user, :start_time, :end_time, :weight, :actx, presence: true
   validates :is_sleep, :inclusion => {:in => [true, false]}
-  validate :start_before_end, :does_not_overlap
+  validate :start_before_end, :does_not_overlap, :time_in_past
   after_initialize :ensure_attrs
 
   belongs_to :user
@@ -122,6 +122,12 @@ class Sit < ActiveRecord::Base
   def start_before_end
     unless self.end_time > self.start_time
       errors.add(:end_time, "can't be before start time")
+    end
+  end
+
+  def time_in_past
+    unless self.start_time < Time.now && self.end_time < Time.now
+      errors[:base] << "Sit interval start or end time cannot be in the future"
     end
   end
 

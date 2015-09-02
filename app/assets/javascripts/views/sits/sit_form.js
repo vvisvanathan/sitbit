@@ -1,5 +1,6 @@
 Sitbit.Views.SitForm = Backbone.View.extend({
   template: JST['users/sits/form'],
+  className: 'form-tile-content',
 
   events: {
     'submit form' : 'submit'

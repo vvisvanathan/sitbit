@@ -14,7 +14,8 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
     return this;
   },
 
-  updateGraph: function (sitData) {
+  updateGraph: function (viewDate, sitData) {
+    this.viewDate = viewDate;
     this.sitsToday = sitData;
     this.vegaParse();
   },
@@ -36,11 +37,12 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
       hourHeight = $("#cals-tile").height() - 75;
     }
     var data = this.parseCalsDiffs();
+    var intOffset = (0.019 * $('body').width());
+    if (intOffset > 23) { intOffset = 24; }
 
     var graphSpecs = {
       "width": $("#cals-tile").width() - 60,
       "height": $("#cals-tile").height() - 75,
-      // "padding": {"top": 30, "left": 30, "bottom": 30, "right": 30},
       "data": [
         {
           "name": "table",
@@ -126,7 +128,7 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
           "properties": {
             "enter": {
               "interpolate": {"value": "basis"},
-              "x": {"scale": "x", "field": "x", "offset": (0.019 * $('body').width())},
+              "x": {"scale": "x", "field": "x", "offset": intOffset},
               "y": {"scale": "y", "field": "t"},
               "y2": {"scale": "y", "value": 0}
             },

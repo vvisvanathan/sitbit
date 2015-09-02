@@ -4,18 +4,24 @@
   <div class="form-group">
 
     <!-- start time -->
-    <input id="start-time"
-           type="datetime-local"
-           name="sit[start_time]"
-           class="form-control"
-           placeholder="mm/dd/yy, --:-- AM (Start Time)">
+    <div style="margin-bottom: 15px" class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-time"><p class="input-label-text">Start</p></i></span>
+      <input id="start-time"
+            type="datetime-local"
+            name="sit[start_time]"
+            class="form-control"
+            placeholder="mm/dd/yy, --:-- AM (Start Time)">
+    </div>
 
     <!-- end time -->
-    <input id="end-time"
-           type="datetime-local"
-           name="sit[end_time]"
-           class="form-control"
-           placeholder="mm/dd/yy, --:-- AM (Start Time)">
+    <div style="margin-bottom: 15px" class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-time"><p class="input-label-text">End</p></i></span>
+      <input id="end-time"
+            type="datetime-local"
+            name="sit[end_time]"
+            class="form-control"
+            placeholder="mm/dd/yy, --:-- AM (Start Time)">
+    </div>
 
     <div class="checkbox">
       <label>
@@ -25,5 +31,5 @@
     </div>
   </div>
 
-  <div class="sit-errors"></div>
+  <div class="sit-errors"><p class="no-error-message">Log Sit Intervals Here!</p></div>
 </form>
