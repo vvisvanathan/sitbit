@@ -54,8 +54,7 @@
       </div>
 
       <ul>
-        <% for (i = 0; i < 9; i++) { %>
-
+        <% for (i = 0; i < 8; i++) { %>
             <% if (users.models[i] && (users.models[i].escape('id') != Sitbit.CURRENT_USER.id)) { %>
               <a href="#users/<%= users.models[i].escape('id') %>">
                 <li>
@@ -64,7 +63,6 @@
                 </li>
               </a>
             <% } %>
-
         <% } %>
       </ul>
     </div>
