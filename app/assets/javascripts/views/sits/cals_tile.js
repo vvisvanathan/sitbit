@@ -232,7 +232,6 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
           var frac = hourly.h_end - hourly.h_start;
           this.output[idx].y += hourly.scr * frac;
 
-          // Ugly conditionals for color assignment:
           if (this.output[idx].y > 0) { this.output[idx].hc = "lightgreen"; }
           if (hourly.is_sleep) {
             this.output[idx].c = "black";
