@@ -590,9 +590,13 @@ body {
           }
         }
 
+        .current-user {
+          color: yellow;
+          opacity: 0.85;
+        }
+
         li:hover {
-          opacity: 0.95;
-          color: white;
+          opacity: 0.97;
         }
       }
     }

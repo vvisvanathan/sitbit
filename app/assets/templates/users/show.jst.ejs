@@ -55,9 +55,13 @@
 
       <ul>
         <% for (i = 0; i < 8; i++) { %>
-            <% if (users.models[i] && (users.models[i].escape('id') != Sitbit.CURRENT_USER.id)) { %>
+            <% if (users.models[i]) { %>
+
+              <% var isMe = '' %>
+              <% if (users.models[i].escape('id') == Sitbit.CURRENT_USER.id) { isMe = 'current-user' } %>
+
               <a href="#users/<%= users.models[i].escape('id') %>">
-                <li>
+                <li class="<%= isMe %>">
                   <div class='leader-name'><%= users.models[i].escape('username') %></div>
                   <div class='score'><strong><%= users.models[i].escape('daily_avg') %></strong> hrs/day</div>
                 </li>
