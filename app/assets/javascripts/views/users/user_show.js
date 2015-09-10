@@ -40,6 +40,7 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
   },
 
   addTileSubviews: function () {
+    $(window).off();
     var context = {
       sitsToday: this.sitsToday,
       user: this.model,
@@ -61,11 +62,6 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
   addCalsTileView: function (context) {
     this.calsView = new Sitbit.Views.CalsTile(context);
     this.addSubview('.calories-tile', this.calsView);
-  },
-
-  addIntsTileView: function (context) {
-    this.intsView = new Sitbit.Views.IntsTile(context);
-    this.addSubview('.intervals-tile', this.intsView);
   },
 
   addStepsTileView: function (context) {

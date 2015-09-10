@@ -10,11 +10,6 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
     $(window).on("resize", this.vegaParse.bind(this));
   },
 
-  remove: function () {
-    $(window).off("resize", this.vegaParse.bind(this));
-    Backbone.View.prototype.remove.apply(this, arguments);
-  },
-
   render: function () {
     this.$el.html(this.template({ sits: this.collection }));
     return this;
