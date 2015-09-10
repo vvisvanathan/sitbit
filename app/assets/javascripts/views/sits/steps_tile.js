@@ -7,6 +7,12 @@ Sitbit.Views.StepsTile = Backbone.View.extend ({
     this.sitsToday = options.sitsToday;
     this.viewDate = options.userShow.viewDate;
     this.listenTo(this.user, 'sync', this.vegaParse);
+    $(window).on("resize", this.vegaParse.bind(this));
+  },
+
+  remove: function () {
+    $(window).off("resize", this.vegaParse.bind(this));
+    Backbone.View.prototype.remove.apply(this, arguments);
   },
 
   render: function () {
@@ -39,7 +45,7 @@ Sitbit.Views.StepsTile = Backbone.View.extend ({
     var data = this.parseCalsDiffs();
 
     var graphSpecs = {
-      "width": $("#steps-tile").width() - 60,
+      "width": $("#steps-tile").width() - 75,
       "height": $("#steps-tile").height() - 75,
       "data": [
         {
@@ -49,6 +55,10 @@ Sitbit.Views.StepsTile = Backbone.View.extend ({
         {
           "name": "integral",
           "values": data[1]
+        },
+        {
+          "name": "xaxis",
+          "values": data[2]
         }
       ],
       "scales": [
@@ -64,27 +74,33 @@ Sitbit.Views.StepsTile = Backbone.View.extend ({
           "range": "height",
           "domain": this.graphDomain,
           "nice": true
+        },
+        {
+          "name": "xlabels",
+          "type": "ordinal",
+          "range": "width",
+          "domain": {"data": "table", "field": "x"}
         }
       ],
       "axes": [
-        {
-          "type": "x",
-          "scale": "x",
-          "values": [0, 6, 12, 18, 23],
-          "offset": -5,
-          "properties": {
-            "labels": {
-              "fill": {"value": "gray"},
-              "fontSize": {"value": 12}
-            },
-            "ticks": {
-              "strokeWidth": {"value": 0}
-            },
-            "axis": {
-              "strokeWidth": {"value": 0}
-            }
-          }
-        },
+        // {
+        //   "type": "x",
+        //   "scale": "x",
+        //   "values": [0, 6, 12, 18, 23],
+        //   "offset": -5,
+        //   "properties": {
+        //     "labels": {
+        //       "fill": {"value": "gray"},
+        //       "fontSize": {"value": 12}
+        //     },
+        //     "ticks": {
+        //       "strokeWidth": {"value": 0}
+        //     },
+        //     "axis": {
+        //       "strokeWidth": {"value": 0}
+        //     }
+        //   }
+        // },
         {
           "type": "y",
           "scale": "y",
@@ -158,6 +174,20 @@ Sitbit.Views.StepsTile = Backbone.View.extend ({
               "fillOpacity": {"value": 0.75}
             }
           }
+        },
+        {
+          "type": "text",
+          "from": {"data": "xaxis"},
+          "properties": {
+            "enter": {
+              "x": {"scale": "xlabels", "field": "hour"},
+              "y": {"value": $('#cals-tile').height() - 55},
+              "fontSize": {"value": 10},
+              "align": {"value": "left"},
+              "fill": {"value": "gray"},
+              "text": {"data": "xaxis", "field": "name"}
+            }
+          }
         }
       ]
     };
@@ -210,7 +240,15 @@ Sitbit.Views.StepsTile = Backbone.View.extend ({
       if ( integral[z].t < minDomain) { minDomain = (Math.round(integral[z].t/100)*100 - 100); }
     }
 
+    xaxis = [
+      {"hour": 0, "name": "midnight"},
+      {"hour": 6, "name": "6am"},
+      {"hour": 12, "name": "noon"},
+      {"hour": 18, "name": "6pm"},
+      {"hour": 23, "name": "midnight"}
+    ];
+
     this.graphDomain = [minDomain, maxDomain];
-    return [this.output, integral];
+    return [this.output, integral, xaxis];
   }
   });
