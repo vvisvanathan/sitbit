@@ -23,8 +23,6 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
   },
 
   render: function () {
-
-    // Render navbar title:
     var pageTitle = this.model.escape('username');
     if (this.model.isCurrentUser()) {
       pageTitle = 'My Dashboard';
@@ -51,7 +49,6 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
     if (this.model.isCurrentUser()) { this.addSitForm(); }
     this.addCalsTileView(context);
     this.addStepsTileView(context);
-    // this.addIntsTileView(context);
   },
 
   renderTileGraphs: function () {
@@ -59,7 +56,6 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
 
     this.calsView.updateGraph(this.viewDate, this.sitsToday);
     this.stepsView.updateGraph(this.viewDate, this.sitsToday);
-    // this.intsView.updateGraph(this.viewDate, this.sitsToday);
   },
 
   addCalsTileView: function (context) {
