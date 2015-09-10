@@ -16,13 +16,6 @@ Sitbit.Collections.Sits = Backbone.Collection.extend({
       }
     }.bind(this));
 
-    // Change controls header:
-    if (ndd === new Date().setHours(0,0,0,0)) {
-      $('.controls-date').text('Today');
-    } else {
-      $('.controls-date').text(date.toDateString());
-    }
-
     return this._sitsToday;
   },
 });

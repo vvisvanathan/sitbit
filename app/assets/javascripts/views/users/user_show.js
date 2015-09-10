@@ -15,6 +15,7 @@ Sitbit.Views.UserShow = Backbone.CompositeView.extend({
     this.sits = this.model.sits();
     this.sitsToday = this.sits.sitsToday(this.viewDate);
 
+    this.listenTo(this.collection, 'sync', this.render);
     this.listenTo(this.model, 'sync', this.render);
     this.listenTo(this.model, 'sync', this.renderTileGraphs);
     this.addTileSubviews();

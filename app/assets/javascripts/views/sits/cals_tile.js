@@ -144,7 +144,7 @@ Sitbit.Views.CalsTile = Backbone.View.extend ({
           "properties": {
             "enter": {
               "interpolate": {"value": "basis"},
-              "x": {"scale": "x", "field": "x", "offset": intOffset/2},
+              "x": {"scale": "x", "field": "x", "offset": intOffset},
               "y": {"scale": "y", "field": "t"},
               "y2": {"scale": "y", "value": 0}
             },
